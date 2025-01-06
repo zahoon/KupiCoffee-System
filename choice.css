@@ -1,0 +1,55 @@
+*{
+    font-family:'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif
+}
+
+body {
+    margin: 0;
+    background-image:linear-gradient(rgba(0,0,0,0.7),rgba(0,0,0,0.7)), url(image/kopi2.jpg);
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: cover;
+    background-attachment: fixed;
+}
+
+.solid-box {
+    background-color: #FFD700;
+    height: 100px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 20px;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    z-index: 100;
+    transition: background-color 0.3s ease;
+  }
+
+  .HEADER {
+    color: #FFD700;
+    font-size: 30px;
+    margin-top: 200px;
+    margin-bottom: -200px;
+    text-align: center;
+}
+  .choice {
+    width: 200px;
+    height: 100px;
+    padding: 10px;
+    margin-top: 400px;
+    margin-left: 900px;
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+  }
+  .button {
+    display: inline-block;
+    padding: 40px 45px;
+    background-color: #7a2005;
+    color: #FFD700;
+    text-decoration: none;
+    border-radius: 5px;
+    margin-right: 10px;
+    margin-left: auto;
+  }
