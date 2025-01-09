@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Header</title>
+    <!-- Tailwind CSS CDN -->
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+</head>
+<body>
+    <header class="bg-gray-100 p-6 bg-pink-400">
+        <div class="flex items-center justify-between">
+            <div class="flex items-center">
+                <img src="../image/AMERICANO.png" alt="Logo" class="w-20 h-auto mr-5">
+                <h1 class="text-2xl font-bold">Kupi Coffee !</h1>
+            </div>
+            <div class="relative inline-block text-left">
+                <button class="inline-flex justify-center w-full rounded-md border border-gray-300 shadow-sm px-4 py-2 bg-white text-sm font-medium text-pink-500 hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500" id="menu-button" aria-expanded="true" aria-haspopup="true">
+                    Home
+                    <svg class="-mr-1 ml-2 h-5 w-5" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
+                        <path fill-rule="evenodd" d="M10 3a1 1 0 01.707.293l5 5a1 1 0 01-1.414 1.414L11 6.414V16a1 1 0 11-2 0V6.414l-3.293 3.293A1 1 0 014.293 8.293l5-5A1 1 0 0110 3z" clip-rule="evenodd" />
+                    </svg>
+                </button>
+                <div class="origin-top-right absolute right-0 mt-2 w-56 rounded-md shadow-lg bg-pink-100 ring-1 ring-black ring-opacity-5 hidden" role="menu" aria-orientation="vertical" aria-labelledby="menu-button" tabindex="-1">
+                    <div class="py-1" role="none">
+                        <a href="home.html" class="text-pink-500 block px-4 py-2 text-sm hover:bg-gray-50" role="menuitem" tabindex="-1" id="menu-item-0">Home</a>
+                        <a href="menu.html" class="text-pink-500 block px-4 py-2 text-sm hover:bg-gray-50" role="menuitem" tabindex="-1" id="menu-item-1">Menu</a>
+                        <a href="../Customer/testlogin.php" class="text-pink-500 block px-4 py-2 text-sm hover:bg-gray-50" role="menuitem" tabindex="-1" id="menu-item-2">Login</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Optional: Script to handle dropdown menu -->
+    <script>
+        document.getElementById('menu-button').addEventListener('click', function() {
+            const menu = document.querySelector('.origin-top-right');
+            menu.classList.toggle('hidden');
+        });
+    </script>
+</body>
+</html>
