@@ -1,557 +1,292 @@
-<?php 
-include("dbconn.php");
-session_start();
-if (isset($_SESSION['username'])){
-    //execute sql statement
-    $username = $_SESSION['username'];
-    $sql = "SELECT * FROM customer WHERE custUsername ='$username'";
-    $query = mysqli_query($dbconn,$sql) or die ("Error:  ".mysqli_error($dbconn));
-    $row = mysqli_num_rows($query);
-    if($row == 0){
-        echo "No record is found";
-    }else {
-        $fetch = mysqli_fetch_assoc($query);
-        $custName = $fetch['custUsername'];
-        $custphoneNum = $fetch['custphoneNum'];
-        $custPassword = $fetch['custPassword'];
-        $custAddress = $fetch['custAddress'];
-?>
 <!DOCTYPE html>
-<html>
+<html lang="en">
 
 <head>
-    <title>Coffee Menu</title>
+    <?php include 'Homepage/header.html'; ?>
     <style>
+        * {
+            font-family: 'Lucida Sans', sans-serif;
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
         body {
-    margin: 0;
-    background-color: #fff;
-    background-size: cover;
-    background-position: center;
-}
+            background-color: ##f9dfef;
+        }
 
-.solid-box {
-    background-color: #FFD700;
-    height: 100px;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    padding: 0 20px;
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    z-index: 100;
-    transition: background-color 0.3s ease;
-  }
+        .menu-section {
+            text-align: center;
+            padding: 30px 20px;
+        }
 
-.solid-box.scrolled {
-    background-color: #7a2005;
-  }
+        .menu-header1 {
+            color: #7a2005;
+            font-size: 30px;
+            margin-bottom: 20px;
+        }
 
-.logo {
-    color: #7a2005;
-    text-decoration: none;
-    padding: 10px 20px;
-    transition: background-color 0.3s ease;
-    font-size: 60px;
-    font-family: Bedrock;
-    font-weight: bold;
-}
+        .menu-slider {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            max-width: 900px;
+            margin: 0 auto;
+        }
 
-.nav-buttons {
-    display: flex;
-    gap: 20px;
-}
-
-.home-button,
-.menu-button,
-.login-button,
-#cart-button {
-    color:  #7a2005;
-    text-decoration: none;
-    padding: 10px 20px;
-    transition: background-color 0.3s ease;
-    font-size: larger;
-    font-weight: bold;
-    margin-right: 50px;
-    text-transform: uppercase;
-}
-
-.home-button:hover,
-.menu-button:hover,
-.login-button:hover {
-    background-color: #ffffff;
-}
-
-.menu-header1 {
-    color: #7a2005;
-    font-size: 30px;
-    margin-top: 120px;
-    margin-bottom: -20px;
-    text-align: center;
-}
-
-.menu-header2 {
-    color: #7a2005;
-    font-size: 30px;
-    text-align: center;
-}
-.menu-header3{
-    color: #7a2005;
-    font-size: 30px;
-    text-align: center;
-}
-.menu-header4{
-    color: #7a2005;
-    font-size: 30px;
-    text-align: center;
-}
-.menu-container {
-            display: grid;
-            width: 1800px;
-            margin-top: 80px;
-            margin-left: 60px;
+        .menu-container {
+            display: flex;
+            transition: transform 0.5s ease-in-out;
+            width: fit-content;
+            justify-content: center;
+            gap:15px;
         }
 
         .coffee-item {
-            display: flex;
-            justify-content: space-between;
-            padding: 20px;
+            flex: 0 0 300px;
+            margin: 10px;
             background-color: #FFD700;
+            padding: 20px;
             border-radius: 5px;
             box-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
+            text-align: center;
         }
 
         .coffee-item img {
-            width: 250px;
-            height: auto;
-            margin-right: 20px;
-        }
-
-        .coffee-item .info {
-            flex: 1;
+            width: 100%;
+            border-radius: 5px;
         }
 
         .coffee-item h3 {
-            margin: 0;
+            font-size: 24px;
             color: #7a2005;
-            font-weight: 900;
-            font-size: 33px;
+            margin: 10px 0;
+            font-weight: bold;
         }
 
         .coffee-item p {
-            margin-top: 10px;
-            color: #000000;
+            font-size: 14px;
+            color: #000;
         }
-        
-.table{
-   border: 1;
-   max-width: 100px;
-}
 
-#cart-button {
-    color:  #7a2005;
-    text-decoration: none;
-    padding: 10px 20px;
-    transition: background-color 0.3s ease;
-    font-size: larger;
-    font-weight: bold;
-    margin-right: 50px;
-    text-transform: uppercase;
-}
-  .info p{
-    color: #7a2005;
-    font-size: medium;
-  }
+        .coffee-item button {
+            margin-top: 10px;
+            padding: 10px 15px;
+            font-size: 16px;
+            color: white;
+            background: #7a2005;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
 
-    #profile {
-    position: fixed;
-    top: 55%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    border-radius: 45px;
-    width: 600px;
-    height: 800px;
-    background-color: white;
-    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.5);
-    z-index: 100;
-  }
+        .nav-button {
+            background: #7a2005;
+            color: white;
+            border: none;
+            font-size: 20px;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            cursor: pointer;
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            z-index: 2;
+        }
 
-  #profile h1 {
-    font-family: 'Poppins', sans-serif;
-    text-align: center;
-    color: #181444;
-    font-size: 25px;
-    animation: transitionIn 1s;
-  }
+        .nav-button.left {
+            left: -150px;
+        }
 
-  .greyFont {
-    font-family: 'Poppins', sans-serif;
-    font-size: 15px;
-    color: grey;
-    text-align: center;
-    line-height: 5px;
-    font-weight: none;
-    animation: transitionIn 1s;
-  }
+        .nav-button.right {
+            right: -150px;
+        }
 
-  #profile p:not(.greyFont) {
-    font-family: 'Poppins', sans-serif;
-    font-size: 20px;
-    color: #181444;
-    margin-left: 50px;
-    max-width: 500px;
-    line-height: 25px;
-    text-align: center;
-    font-weight: bold;
-    animation: transitionIn 1s;
-  }
+        .nav-button:disabled {
+            background: #ccc;
+            color: #888;
+            cursor: not-allowed;
+        }
 
-  .edit {
-    width: 100px;
-    height: 40px;
-    background-color: white;
-    border-radius: 20px;
-    font-weight: bold;
-    color: blue;
-    font-family: 'Poppins', sans-serif;
-    font-size: 16px;
-    margin-top: 80px;
-    margin-left: 250px;
-    border: none;
-    outline: none;
-    transition: box-shadow 0.2s ease-in-out;
-    animation: transitionIn 1s;
-  }
+        .pagination {
+            margin-top: 20px;
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+        }
 
-  .history {
-    width: 500px;
-    height: 50px;
-    background-color: #181444;
-    border-radius: 25px;
-    font-weight: bold;
-    color: white;
-    text-align: center;
-    font-family: 'Poppins', sans-serif;
-    font-size: 16px;
-    margin-top: 5px;
-    margin-left: 50px;
-    border: none;
-    outline: none;
-    transition: box-shadow 0.2s ease-in-out;
-    animation: transitionIn 1s;
-  }
+        .pagination-dot {
+            width: 10px;
+            height: 10px;
+            background: #ccc;
+            border-radius: 50%;
+            cursor: pointer;
+        }
 
-  #profile button:not(.edit):not(.history) {
-    width: 100px;
-    height: 40px;
-    background-color: white;
-    border-radius: 20px;
-    font-weight: bold;
-    color: red;
-    font-family: 'Poppins', sans-serif;
-    font-size: 16px;
-    margin-top: 10px;
-    margin-left: 250px;
-    border: none;
-    outline: none;
-    transition: box-shadow 0.2s ease-in-out;
-    animation: transitionIn 1s;
-  }
+        .pagination-dot.active {
+            background: #7a2005;
+        }
 
-  #profile button:hover {
-    box-shadow: 0px 0px 10px 3px rgba(0, 0, 0, 0.5);
-  }
+        .back-to-login {
+            margin-top: 30px;
+            font-size: 16px;
+        }
 
-  .imgThree {
-    width: 150px;
-    height: 150px;
-    margin-top: 10px;
-    margin-left: 225px;
-    animation: transitionIn 1s;
-  }
+        .back-to-login a {
+            color: #7a2005;
+            text-decoration: none;
+        }
 
-  #profile img:not(.imgThree) {
-    position: absolute;
-    width: 40px;
-    height: 40px;
-    border-radius: 50%;
-    margin-top: 15px;
-    margin-left: 10px;
-    rotate: 180deg;
-    transition: box-shadow 0.2s ease-in-out;
-  }
-
-  #profile img:hover:not(.imgThree) {
-    box-shadow: 0px 0px 10px 3px rgba(0, 0, 0, 0.5);
-  }
-
-  .add-to-cart-button{
-        width: 150px;
-        height: 36px;
-        margin-top: 20px;
-        background: #7a2005;
-        border-radius: 5px;
-        font-weight: bold;
-        border: none;
-        transition: 0.5s ease;
-        cursor: pointer;
-        color: white;
-        margin-left: 500px;
-    }
-    .add-to-cart-button:hover{
-        background: #ffffff;
-        color: #7a2005;
-    }
+        .back-to-login a:hover {
+            text-decoration: underline;
+        }
     </style>
 </head>
-<script>
 
-<?php
-        include("dbconn.php");
-        // Assuming you have a database connection established
-        // and the item data is stored in a table called "items"
-        // with columns: id, name, price, image_path
-        
-        // Fetch the item records from the database
-        $query = "SELECT * FROM menu";
-        $result = mysqli_query($dbconn, $query);
-
-        // Iterate over the IDs and generate CSS for each Popup
-        while ($row = mysqli_fetch_assoc($result)) {
-            $menuID = $row['menuID'];
-            ?>
-
-            function showItem(menuID) {
-                document.getElementById("popup_" + menuID).style.display = "block";
-                document.getElementById("cover").style.display = "block";
-            }
-
-            function closeItem(menuID) {
-                document.getElementById("popup_" + menuID).style.display = "none";
-                document.getElementById("cover").style.display = "none";
-            }
-
-            <?php
-        }
-        ?>
-            function showProfile() {
-                document.getElementById("profile").style.display = "block";
-                document.getElementById("cover").style.display = "block";
-            }
-            function closeProfile() {
-                document.getElementById("profile").style.display = "none";
-                document.getElementById("cover").style.display = "none";
-            }
-            function showCompleted() {
-            document.getElementById("completed").style.display = "block";
-            document.getElementById("cover").style.display = "block";
-            setTimeout(closeCompleted, 2000);
-            }
-            function closeCompleted() {
-                document.getElementById("completed").style.display = "none";
-                document.getElementById("cover").style.display = "none";
-            }
-            function showCart() {
-			document.getElementById("cart").style.display = "block";
-			document.getElementById("cover").style.display = "block";
-			}
-
-			function closeCart() {
-			document.getElementById("cart").style.display = "none";
-			document.getElementById("cover").style.display = "none";
-			}
-
-    </script>
 <body>
-    <div class="solid-box">
-        <a href="index.html" class="logo">COFFEE FOR GO!!</a>
-        <div class="nav-buttons">
-            <a href="index.html" class="home-button">Home</a>
-            <a href="Menu.php" class="menu-button">Menu</a>
-            <a href="Login.html" class="login-button">Login</a>
-            <button onclick="showWarning()" id="cart-button">Cart</button>
-        </div>
-    </div>
+    <!-- Coffee Menu Section -->
     <section class="menu-section">
-        <h2 class="menu-header1">Coffee Menu</h2>
-        <table height="50%" class="table">
-        <?php 
-                include("dbconn.php");
-                $q = "SELECT * FROM menu WHERE menuType ='COFFEE'";
-                $result = mysqli_query($dbconn,$q);
-
-                while($row = mysqli_fetch_assoc($result)){
-                    $coffeeID = $row['menuID'];
-                    $coffeeName = $row['menuName'];
-                    $coffeePrice = $row['menuPrice'];
-                    $coffeeDesc = $row['menuDesc'];
-                    $coffeeStatus = $row['menuStatus'];
-                    $coffeeImage = $row['menuImage'];
-                
-                ?>
-            <tr class="searchCont">
-                <td>
-                    <div class="menu-container searchCont">
-                    <div class="coffee-item">
-                    <img src="coffeepastry/<?php echo $coffeeImage; ?>">
-                    <div class="info">
-                        <h3><?php echo $coffeeName; ?></h3>
-                        <p><?php echo $coffeeDesc;?></p>
-                        <p>RM<?php echo $coffeePrice; ?> </p>
-                        <?php if ($coffeeStatus == 'UNAVAILABLE'){ ?>
-                            <button class="add-to-cart-button">Unavailable</button>
-                    <?php } else {?>
-                    <a href="Login.html?menuID=<?php echo $coffeeID; ?>">
-                            <button onclick = "showCompleted()" class="add-to-cart-button">Add To Cart</button>
-                        </a>
-                        <?php } ?>
-                    </div> 
+            <h2 style="font-size: 35px; font-weight: bold; color: #7a2005">Coffee Menu</h2>
+            <div class="menu-slider">
+                <button class="nav-button left" id="prevButton" onclick="prevPage()">&#8249;</button>
+                <div class="menu-container" id="coffeeContainer">
+                    <!-- Coffee items will be dynamically loaded here -->
                 </div>
+                <button class="nav-button right" id="nextButton" onclick="nextPage()">&#8250;</button>
             </div>
-            </td>
-                
-            </tr>
-            <?php 
-                }
-                ?>
-        </table>
-    </section>
-    <section class="menu-section2">
-        <h2 class="menu-header2">Pastry Menu</h2>
-        <table height="50%" class="table">
-        <?php 
-                $q = "SELECT * FROM menu where menuType ='PASTRY' ";
-                $result = mysqli_query($dbconn,$q);
-
-                while($row = mysqli_fetch_assoc($result)){
-                    $pastryID = $row['menuID'];
-                    $pastryName = $row['menuName'];
-                    $pastryPrice = $row['menuPrice'];
-                    $pastryDesc = $row['menuDesc'];
-                    $pastryStatus = $row['menuStatus'];
-                    $pastryImage = $row['menuImage'];
-                
-                ?>
-            <tr class="searchCont">
-                <td>
-                    <div class="menu-container searchCont">
-                        <div class="coffee-item">
-                        <img src="coffeepastry/<?php echo $pastryImage; ?>">
-                            <div class="info">
-                                <h3><?php echo $pastryName ?></h3>
-                                <p><?php echo $pastryDesc;?></p>
-                                <p>RM<?php echo $pastryPrice; ?> </p>
-                                <?php if ($pastryStatus == 'UNAVAILABLE'){ ?>
-                                <button class="add-to-cart-button">Unavailable</button>
-                                <?php } else {?>
-                                <a href="Login.html?menuID=<?php echo $pastryID; ?>">
-                                <button onclick = "showCompleted()" class="add-to-cart-button">Add To Cart</button>
-                                </a>
-                                <?php } ?>
-                            </div> 
-                        </div>
-                    </div>
-                </td>
-            </tr>
-            <?php 
-                }
-                ?> 
-        </table>
-    </section>
-    <section class="menu-section3">
-        <h2 class="menu-header3">Frappe Menu</h2>
-        <table height="50%" class="table">
-        <?php 
-                $q = "SELECT * FROM menu where menuType ='FRAPPE' ";
-                $result = mysqli_query($dbconn,$q);
-
-                while($row = mysqli_fetch_assoc($result)){
-                    $frappeID = $row['menuID'];
-                    $frappeName = $row['menuName'];
-                    $frappePrice = $row['menuPrice'];
-                    $frappeDesc = $row['menuDesc'];
-                    $frappeStatus = $row['menuStatus'];
-                    $frappeImage = $row['menuImage'];
-                
-                ?>
-            <tr class="searchCont">
-                <td>
-                    <div class="menu-container">
-                        <div class="coffee-item">
-                        <img src="coffeepastry/<?php echo $frappeImage; ?>">
-                            <div class="info">
-                                <h3><?php echo $frappeName ?></h3>
-                                <p><?php echo $frappeDesc;?></p>
-                                <p>RM<?php echo $frappePrice; ?> </p>
-                        
-                                <?php if ($frappeStatus == 'UNAVAILABLE'){ ?>
-                                    <button class="add-to-cart-button">Unavailable</button>
-                                <?php } else {?>
-                                <a href="Login.html?coffeeID=<?php echo $frappeID; ?>">
-                                <button onclick = "showCompleted()" class="add-to-cart-button">Add To Cart</button>
-                            </a>
-                        <?php } ?>
-                    </div> 
-                </div>
+            <div class="pagination" id="paginationDots">
+                <!-- Pagination dots for coffee menu -->
             </div>
-                </td>    
-            </tr>
-            <?php 
-                }
-                ?> 
-        </table>
-    </section>
-    <section class="menu-section4">
-        <h2 class="menu-header4">Hot Meals Menu</h2>
-        <table height="50%" class="table">
-        <?php 
-                $q = "SELECT * FROM menu where menuType ='HOT MEALS' ";
-                $result = mysqli_query($dbconn,$q);
+        </section>
 
-                while($row = mysqli_fetch_assoc($result)){
-                    $hotMealsID = $row['menuID'];
-                    $hotMealsName = $row['menuName'];
-                    $hotMealsPrice = $row['menuPrice'];
-                    $hotMealsDesc = $row['menuDesc'];
-                    $hotMealsStatus = $row['menuStatus'];
-                    $hotMealsImage = $row['menuImage'];
-                
-                ?>
-            <tr class="searchCont">
-                <div class="menu-container searchCont">
-                    <div class="coffee-item">
-                    <img src="coffeepastry/<?php echo $hotMealsImage; ?>">
-                        <div class="info">
-                            <h3><?php echo $hotMealsName ?></h3>
-                            <p><?php echo $hotMealsDesc;?></p>
-                            <p>RM<?php echo $hotMealsPrice; ?> </p>
-                            <?php if ($hotMealsStatus == 'UNAVAILABLE'){ ?>
-                            <button class="add-to-cart-button">Unavailable</button>
-                            <?php } else {?>
-                            <a href="Login.html?menuID=<?php echo $hotMealsID; ?>">
-                            <button onclick = "showCompleted()" class="add-to-cart-button">Add To Cart</button>
-                        </a>
-                        <?php } ?>
-                    </div> 
-                </div>
+    <!-- Non-Coffee Menu Section -->
+    <section class="menu-section">
+        <h2 style="font-size: 35px; font-weight: bold; color: #7a2005">Non-Coffee Menu</h2>
+        <div class="menu-slider">
+            <button class="nav-button left" id="prevNonCoffeeButton" onclick="prevNonCoffeePage()">&#8249;</button>
+            <div class="menu-container" id="nonCoffeeContainer">
+                <!-- Non-coffee items will be dynamically loaded here -->
             </div>
-            </td>
-            </tr>
-            <?php 
-                }
-                ?>
-        </table>
+            <button class="nav-button right" id="nextNonCoffeeButton" onclick="nextNonCoffeePage()">&#8250;</button>
+        </div>
+        <div class="pagination" id="nonCoffeePaginationDots">
+            <!-- Pagination dots for non-coffee menu -->
+        </div>
     </section>
 
-    <!-- Add more sections and content as needed -->
-    <script src="script.js"></script>
+    <script>
+        const coffeeItems = [
+            { name: "Americano", description: "Freshly pulled shots of espresso with hot water.", price: "RM 4.00", image: "image/AMERICANO.png" },
+            { name: "Cappuccino", description: "Espresso layered with steamed milk and foam.", price: "RM 4.50", image: "image/CAPPUCINO.png" },
+            { name: "Spanish Latte", description: "Espresso with steamed non-fat milk and foam.", price: "RM 4.75", image: "image/LATTE.png" },
+            { name: "Salted Caramel Frappe", description: "Caramel syrup blended with coffee, milk, and ice.", price: "$5.00", image: "image/SALTED_CARAMEL_FRAPPE.png" },
+            { name: "Espresso Frappe", description: "Espresso blended with milk and ice.", price: "RM 5.00", image: "image/ESPRESSO_FRAPPE.png" },
+            { name: "Salted Caramel Latte", description: "Salted caramel latte made with caramel sauce and sea salt.", price: "RM 5.25", image: "image/SALTED_CARAMEL_LATTE.png" },
+            { name: "Buttercreme Latte", description: "Butter + creme.", price: "RM 5.50", image: "image/BUTTERCREME_LATTE.png" },
+            { name: "Coconut Latte", description: "coconut.", price: "RM 5.25", image: "image/COCONUT_LATTE.png" },
+            { name: "Hazelnut Latte", description: "hazel kopi.", price: "RM 5.25", image: "image/HAZELNUT_LATTE.png" },
+            { name: "Matcha Latte", description: "coconut.", price: "RM 5.25", image: "image/MATCHA_LATTE.png" },
+            { name: "Spanish Latte", description: "coconut.", price: "RM 5.25", image: "image/SPANISH_LATTE.png" },
+            { name: "Nesloo", description: "coconut.", price: "RM 5.25", image: "image/NESLOO.png" }
+        ];
+
+        const nonCoffeeItems = [
+            { name: "Matcha Frappe", description: "Japanese-style Matcha blended with milk and ice.", price: "RM 5.50", image: "image/JAPANESE_MATCHA_FRAPPE.png" },
+            { name: "Genmaicha Latte", description: "A latte made with green tea instead of espresso.", price: "RM 5.25", image: "image/GREEN_TEA_LATTE.png" },
+            { name: "Biscoff Frappe", description: "A blend of black tea and spices with milk.", price: "RM 4.00", image: "image/BISCOFF_FRAPPE.png" },
+            { name: "Chocohazel Frappe", description: "Rich and creamy chocolate drink.", price: "RM 3.50", image: "image/CHOCOHAZEL_FRAPPE.png" },
+            { name: "Chocookies", description: "Premium matcha green tea blended with milk.", price: "RM 4.75", image: "image/CHOCOOKIES.png" },
+            { name: "Buttercreme Choco", description: "Premium matcha green tea blended with milk.", price: "RM 4.75", image: "image/BUTTERCREME_CHOCO.png" },
+            { name: "Lemonade", description: "Freshly squeezed lemons with a hint of sweetness.", price: "RM 3.00", image: "image/LEMONADE.png" },
+            { name: "Chesecream Matcha", description: "Refreshing black tea served cold.", price: "$2.50", image: "image/CHEESECREAM_MATCHA.png" },
+            { name: "Matcha", description: "Premium matcha green tea blended with milk.", price: "RM 4.75", image: "image/MATCHA.png" },
+            { name: "Strawberry Frappe", description: "Premium matcha green tea blended with milk.", price: "RM 4.75", image: "image/STRAWBERRY_FRAPPE.png" },
+            { name: "Yam Milk", description: "Premium matcha green tea blended with milk.", price: "RM 4.75", image: "image/YAM_MILK.png" },
+        ];
+
+        const itemsPerPage = 3;
+
+        let currentCoffeePage = 0;
+        let currentNonCoffeePage = 0;
+
+        function loadMenuItems(containerId, paginationId, items, currentPage, prevButtonId, nextButtonId) {
+            const menuContainer = document.getElementById(containerId);
+            const paginationDots = document.getElementById(paginationId);
+            const prevButton = document.getElementById(prevButtonId);
+            const nextButton = document.getElementById(nextButtonId);
+
+            menuContainer.innerHTML = '';
+
+            const startIndex = currentPage * itemsPerPage;
+            const endIndex = startIndex + itemsPerPage;
+            const pageItems = items.slice(startIndex, endIndex);
+
+            pageItems.forEach(item => {
+                const itemDiv = document.createElement('div');
+                itemDiv.classList.add('coffee-item');
+                itemDiv.innerHTML = `
+                    <img src="${item.image}" alt="${item.name}">
+                    <h3>${item.name}</h3>
+                    <p>${item.description}</p>
+                    <p>Price: ${item.price}</p>
+                    <button onclick="window.location.href='Login.html';">Add to Cart</button>
+                `;
+                menuContainer.appendChild(itemDiv);
+            });
+
+            paginationDots.innerHTML = '';
+            for (let i = 0; i < Math.ceil(items.length / itemsPerPage); i++) {
+                const dot = document.createElement('div');
+                dot.classList.add('pagination-dot');
+                if (i === currentPage) dot.classList.add('active');
+                dot.addEventListener('click', () => {
+                    if (containerId === 'coffeeContainer') {
+                        currentCoffeePage = i;
+                    } else {
+                        currentNonCoffeePage = i;
+                    }
+                    loadMenuItems(containerId, paginationId, items, i, prevButtonId, nextButtonId);
+                });
+                paginationDots.appendChild(dot);
+            }
+
+            prevButton.disabled = currentPage === 0;
+            nextButton.disabled = (currentPage + 1) * itemsPerPage >= items.length;
+        }
+
+        function nextPage() {
+            if ((currentCoffeePage + 1) * itemsPerPage < coffeeItems.length) {
+                currentCoffeePage++;
+                loadMenuItems('coffeeContainer', 'paginationDots', coffeeItems, currentCoffeePage, 'prevButton', 'nextButton');
+            }
+        }
+
+        function prevPage() {
+            if (currentCoffeePage > 0) {
+                currentCoffeePage--;
+                loadMenuItems('coffeeContainer', 'paginationDots', coffeeItems, currentCoffeePage, 'prevButton', 'nextButton');
+            }
+        }
+
+        function nextNonCoffeePage() {
+            if ((currentNonCoffeePage + 1) * itemsPerPage < nonCoffeeItems.length) {
+                currentNonCoffeePage++;
+                loadMenuItems('nonCoffeeContainer', 'nonCoffeePaginationDots', nonCoffeeItems, currentNonCoffeePage, 'prevNonCoffeeButton', 'nextNonCoffeeButton');
+            }
+        }
+
+        function prevNonCoffeePage() {
+            if (currentNonCoffeePage > 0) {
+                currentNonCoffeePage--;
+                loadMenuItems('nonCoffeeContainer', 'nonCoffeePaginationDots', nonCoffeeItems, currentNonCoffeePage, 'prevNonCoffeeButton', 'nextNonCoffeeButton');
+            }
+        }
+
+        document.addEventListener('DOMContentLoaded', () => {
+            loadMenuItems('coffeeContainer', 'paginationDots', coffeeItems, currentCoffeePage, 'prevButton', 'nextButton');
+            loadMenuItems('nonCoffeeContainer', 'nonCoffeePaginationDots', nonCoffeeItems, currentNonCoffeePage, 'prevNonCoffeeButton', 'nextNonCoffeeButton');
+        });
+    </script>
 </body>
-
-</html>
-<?php 
-    }
-}else{
-    header("Location: Login.html");
-}
-?>

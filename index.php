@@ -83,62 +83,90 @@
     vertical-align: middle;
   }
 
-  #home{
-    width: 100%;
-    height: 100vh;
-    background-image:linear-gradient(rgba(0,0,0,0.7),rgba(0,0,0,0.7)), url(image/kopi2.jpg);
-    background-repeat: no-repeat;
-    background-size: cover;
-    background-position: 80%;
-    font-family: Garamond;
-    font-weight: bolder;
-}
-.image{
-  width: 200px;
-  height: 200px;
-  border-radius: 500px;
-}
-.content{
-  padding-top: 210px;
-  margin-left: 56px;
-}
-.content h3{
-  font-size: 50px;
-  color: #FFD700;
-}
-.content p{
-  margin-top: 10px;
-  color: #FFD700;
-}
-#btn{
-  width: 150px;
-  height: 36px;
-  margin-top: 20px;
-  background: #FFD700;
-  border-radius: 5px;
-  font-weight: bold;
-  border: none;
-  transition: 0.5s ease;
-  cursor: pointer;
-}
-#btn:hover{
-  background: #ffffff;
-  color: #7a2005;
-}
+  #home {
+            width: 100%;
+            height: 100vh;
+            background-image:url(image/kupi.jpg);
+            background-repeat: no-repeat;
+            background-size: cover;
+            background-position: 80%;
+            font-family: Garamond;
+            font-weight: bolder;
+        }
 
-.featured {
-    width: 100%;
-    height: 950px;
-    background-image:linear-gradient(rgba(0,0,0,0.7),rgba(0,0,0,0.7)),  url(image/kopi3.jpg);
-    background-size: cover;
-    display: flex;
-    justify-content: space-around;
-    align-items: center;
-}
+        .about {
+            width: 100%;
+            height: 950px;
+            background-image: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)), url(image/about.jpg);
+            background-size: cover;
+            background-position: 80%;
+            display: flex;
+            justify-content: space-around;
+            align-items: center;
+        }
 
-.featured h2{
-  color: #ffffff;
-}
+        .content {
+            padding-top: 210px;
+            margin-left: 56px;
+            max-width: 50%;
+        }
+
+        .content h3 {
+            font-size: 50px;
+            color:rgb(60, 36, 13);
+        }
+
+        .content p {
+            margin-top: 10px;
+            color:rgb(60, 36, 13);
+        }
+
+        #btn {
+            width: 150px;
+            height: 36px;
+            margin-top: 20px;
+            background:rgb(255, 129, 188);
+            border-radius: 5px;
+            font-weight: bold;
+            border: none;
+            transition: 0.5s ease;
+            cursor: pointer;
+        }
+
+        #btn:hover {
+            background:rgb(60, 36, 13);
+            color:rgb(255, 129, 188);
+        }
+
+        .image {
+            position: absolute;
+            right: 50px;
+            top: 30%;
+            width: 300px;
+            height: 300px;
+            border-radius: 50%;
+        }
+
+        .image img {
+            width: 100%;
+            height: 100%;
+            border-radius: 50%;
+        }
+
+        .featured {
+            width: 100%;
+            height: 100vh;
+            background-image: url(image/top.jpg);
+            background-size: cover;
+            display: flex;
+            justify-content: space-around;
+            align-items: center;
+        }
+
+        .featured h2 {
+            color: #ffffff;
+        }
+        
 
 .featured .coffee-box {
   position: relative;
@@ -171,8 +199,8 @@
 }
 
 .coffee-box {
-    width: 200px;
-    height: 200px;
+    width: 230px;
+    height: 280px;
     background-color: #FFD700;
     border-radius: 10px;
     display: flex;
@@ -182,8 +210,8 @@
     font-size: 20px;
 }
 .Kopidepan{
-    width: 190px;
-    height: 190px;
+    width: 250px;
+    height: 250px;
 }
 
 .details{
@@ -397,60 +425,66 @@
 </head>
 
 <body>
-    <div class="solid-box">
-        <a href="index.html" class="logo">KUPI COFFEE</a>
-        <div class="nav-buttons">
-            <a href="index.html" class="home-button">Home</a>
-            <a href="Menu.html" class="menu-button">Menu</a>
-            <a href="Login.html" class="login-button">Login</a>
+    <?php include 'Homepage/header.html'; ?>
+    <section id="home">
+        <div class="content">
+            <h3>Brew Joy. Sip Happiness.<br>Start Your Day With Us</h3>
+            <p>Welcome to Kupi Coffee, where every sip is a celebration of flavor
+                <br>Let Kupi Coffee be your perfect start 
+                <br> to every adventure.
+            </p>
+            <button onclick="window.location.href='Menu.php';" type="button" id="btn">Shop Now</button>
+        </div>
+
+    </section>
+
+    <section id="about">
+    <div class="about" style="display: flex; justify-content: center; align-items: center; height: 60vh;">
+        <div style="text-align: center; padding: 20px;">
+            <!-- Title -->
+            <h1 style="font-size: 40px; font-weight: bold; color:rgb(255, 129, 188); margin-top: 20px;">About Us</h1>
+            <!-- Description -->
+            <p style="margin: 20px auto; max-width: 600px; font-size: 18px; color:rgb(248, 175, 66);">
+                At Kupi Coffee, we pour our passion and dedication into every cup, crafting not just exceptional coffee 
+                but also moments of joy, connection, and inspiration. Whether you're seeking a cozy place to start your 
+                day or a comforting brew to fuel your next adventure, we’re here to make every sip unforgettable.
+            </p>
+            <!-- Button -->
+            <button onclick="window.location.href='MeetOurTeam.php';" type="button" id="btn">Get to know us</button>
         </div>
     </div>
+</section>
 
-    <section id="home">
-      <div class="content">
-        <div class="image">
-          <img src="image/logo.png" class="image">
-        </div>
-        <h3>Start Your Day With a <br> Fresh Coffee</h3>
-        <p>Everyone should believe in something. I believe I will have another coffee.
-           <br>Humanity runs on coffee.
-        </p>
-        <button onclick="window.location.href='Menu.php';" type="button" id="btn">Shop Now</button>
-      </div>
-     </section>
 
     <div class="featured">
-      <h2>Top Picked Coffee</h2>
+        <h3 style="font-size: 40px; font-weight: bold; color:rgb(255, 169, 209);">Try Our Top 3<br>Picked Coffee !!</h3>
         <div class="coffee-box">
             <img src="image/AMERICANO.png" class="Kopidepan">
-            <div class="coffee-name">AMERICANO</div>
+            <div class="coffee-name">1. AMERICANO</div>
         </div>
         <div class="coffee-box">
             <img src="image/MOCHA.png" class="Kopidepan">
-            <div class="coffee-name">MOCHA</div>
+            <div class="coffee-name">2. MOCHA</div>
         </div>
         <div class="coffee-box">
             <img src="image/LATTE.png" class="Kopidepan">
-            <div class="coffee-name">LATTE</div>
-        </div>
-        <div class="coffee-box">
-            <img src="image/SALTED_CARAMEL_LATTE.png" class="Kopidepan">
-            <div class="coffee-name">SALTED CARAMEL LATTE</div>
+            <div class="coffee-name">3. LATTE</div>
         </div>
     </div>
 
-   <footer id="footer">
-    <div class="socail-links text-center">
-      <i class="fa-brands fa-twitter"></i>
-      <i class="fa-brands fa-facebook-f"></i>
-      <i class="fa-brands fa-instagram"></i>
-      <i class="fa-brands fa-youtube"></i>
-      <i class="fa-brands fa-pinterest-p"></i>
-    </div>
-    <div class="copyright text-center">
-      &copy; Copyright <strong><span>Kupi Coffee 2025</span></strong>. Zahin Owner
-  </div>
-</footer>
+    <footer id="footer">
+        <div class="socail-links text-center">
+            <i class="fa-brands fa-twitter"></i>
+            <i class="fa-brands fa-facebook-f"></i>
+            <i class="fa-brands fa-instagram"></i>
+            <i class="fa-brands fa-youtube"></i>
+            <i class="fa-brands fa-pinterest-p"></i>
+        </div>
+        <div class="copyright text-center">
+            &copy; Copyright <strong><span>Kupi Coffee 2025</span></strong>. Zahin Owner
+        </div>
+    </footer>
     <script src="script.js"></script>
 </body>
+
 </html>
