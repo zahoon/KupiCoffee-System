@@ -12,7 +12,7 @@
         }
 
         body {
-            background-color: ##f9dfef;
+            background-color: rgb(255, 191, 230) !important; 
         }
 
         .menu-section {
@@ -21,7 +21,7 @@
         }
 
         .menu-header1 {
-            color: #7a2005;
+            color: #78350F;
             font-size: 30px;
             margin-bottom: 20px;
         }
@@ -46,7 +46,7 @@
         .coffee-item {
             flex: 0 0 300px;
             margin: 10px;
-            background-color: #FFD700;
+            background-color:rgb(255, 238, 141);
             padding: 20px;
             border-radius: 5px;
             box-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
@@ -60,7 +60,7 @@
 
         .coffee-item h3 {
             font-size: 24px;
-            color: #7a2005;
+            color: #78350F;
             margin: 10px 0;
             font-weight: bold;
         }
@@ -70,19 +70,26 @@
             color: #000;
         }
 
+        .coffee-item .price {
+            font-size: 18px; /* Bigger font size */
+            font-weight: bold; /* Bold text */
+            color: #78350F; /* You can adjust the color if you like */
+        }
+
+
         .coffee-item button {
             margin-top: 10px;
             padding: 10px 15px;
             font-size: 16px;
             color: white;
-            background: #7a2005;
+            background: #78350F;
             border: none;
             border-radius: 5px;
             cursor: pointer;
         }
 
         .nav-button {
-            background: #7a2005;
+            background: #78350F;
             color: white;
             border: none;
             font-size: 20px;
@@ -105,7 +112,7 @@
         }
 
         .nav-button:disabled {
-            background: #ccc;
+            background:rgb(255, 255, 255);
             color: #888;
             cursor: not-allowed;
         }
@@ -120,13 +127,14 @@
         .pagination-dot {
             width: 10px;
             height: 10px;
-            background: #ccc;
+            background:rgb(255, 255, 255);
             border-radius: 50%;
             cursor: pointer;
+
         }
 
         .pagination-dot.active {
-            background: #7a2005;
+            background: #78350F;
         }
 
         .back-to-login {
@@ -135,7 +143,7 @@
         }
 
         .back-to-login a {
-            color: #7a2005;
+            color: #78350F;
             text-decoration: none;
         }
 
@@ -178,33 +186,157 @@
 
     <script>
         const coffeeItems = [
-            { name: "Americano", description: "Freshly pulled shots of espresso with hot water.", price: "RM 4.00", image: "image/AMERICANO.png" },
-            { name: "Cappuccino", description: "Espresso layered with steamed milk and foam.", price: "RM 4.50", image: "image/CAPPUCINO.png" },
-            { name: "Spanish Latte", description: "Espresso with steamed non-fat milk and foam.", price: "RM 4.75", image: "image/LATTE.png" },
-            { name: "Salted Caramel Frappe", description: "Caramel syrup blended with coffee, milk, and ice.", price: "$5.00", image: "image/SALTED_CARAMEL_FRAPPE.png" },
-            { name: "Espresso Frappe", description: "Espresso blended with milk and ice.", price: "RM 5.00", image: "image/ESPRESSO_FRAPPE.png" },
-            { name: "Salted Caramel Latte", description: "Salted caramel latte made with caramel sauce and sea salt.", price: "RM 5.25", image: "image/SALTED_CARAMEL_LATTE.png" },
-            { name: "Buttercreme Latte", description: "Butter + creme.", price: "RM 5.50", image: "image/BUTTERCREME_LATTE.png" },
-            { name: "Coconut Latte", description: "coconut.", price: "RM 5.25", image: "image/COCONUT_LATTE.png" },
-            { name: "Hazelnut Latte", description: "hazel kopi.", price: "RM 5.25", image: "image/HAZELNUT_LATTE.png" },
-            { name: "Matcha Latte", description: "coconut.", price: "RM 5.25", image: "image/MATCHA_LATTE.png" },
-            { name: "Spanish Latte", description: "coconut.", price: "RM 5.25", image: "image/SPANISH_LATTE.png" },
-            { name: "Nesloo", description: "coconut.", price: "RM 5.25", image: "image/NESLOO.png" }
-        ];
+    { 
+        name: "Americano", 
+        description: "A timeless classic, freshly pulled shots of espresso to create a robust and flavorful black coffee that wakes you up with every sip.<br><br>", 
+        price: "RM 6.00", 
+        image: "image/AMERICANO.png" 
+    },
+    { 
+        name: "Cappuccino", 
+        description: "A perfect balance of bold espresso, steamed milk, and creamy foam, topped with a light dusting of cocoa for a luxurious treat.<br><br>", 
+        price: "RM 6.50", 
+        image: "image/CAPPUCINO.png" 
+    },
+    { 
+        name: "Spanish Latte", 
+        description: "A rich and smooth blend of espresso with steamed milk and a touch of condensed milk for a perfectly sweet and creamy finish.<br><br>", 
+        price: "RM 7.00", 
+        image: "image/LATTE.png" 
+    },
+    { 
+        name: "Salted Camy Frappe", 
+        description: "A delightful blend of caramel syrup, coffee, milk, and ice, topped with whipped cream and a drizzle of caramel.<br><br>", 
+        price: "RM 8.00", 
+        image: "image/SALTED_CARAMEL_FRAPPE.png" 
+    },
+    { 
+        name: "Espresso Frappe", 
+        description: "A bold and creamy drink made by blending freshly brewed espresso with milk and ice, ideal for those who love strong flavors.<br><br>", 
+        price: "RM 7.50", 
+        image: "image/ESPRESSO_FRAPPE.png" 
+    },
+    { 
+        name: "Salted Caramel Latte", 
+        description: "A decadent treat made with rich caramel sauce, a hint of sea salt, and smooth espresso, topped with creamy steamed milk.<br><br>", 
+        price: "RM 7.50", 
+        image: "image/SALTED_CARAMEL_LATTE.png" 
+    },
+    { 
+        name: "Buttercreme Latte", 
+        description: "An indulgent latte made with creamy butter and sweet cream, paired with bold espresso for a comforting and unique flavor.<br><br>", 
+        price: "RM 8.00", 
+        image: "image/BUTTERCREME_LATTE.png" 
+    },
+    { 
+        name: "Coconut Latte", 
+        description: "A refreshing take on a latte with smooth coconut milk, bold espresso, and a hint of tropical sweetness to feel the day better than yesterday.<br><br>", 
+        price: "RM 7.50", 
+        image: "image/COCONUT_LATTE.png" 
+    },
+    { 
+        name: "Hazelnut Latte", 
+        description: "A perfect balance of espresso and rich hazelnut syrup, blended with steamed milk for a creamy, nutty flavor.<br><br>", 
+        price: "RM 7.00", 
+        image: "image/HAZELNUT_LATTE.png" 
+    },
+    { 
+        name: "Matcha Latte", 
+        description: "A smooth and creamy combination of matcha green tea and steamed milk, offering a refreshing and slightly earthy taste.<br><br>", 
+        price: "RM 7.50", 
+        image: "image/MATCHA_LATTE.png" 
+    },
+    { 
+        name: "Spanish Latte", 
+        description: "A sweet, velvety espresso-based drink with a hint of condensed milk and steamed milk, offering a smooth finish.<br><br>", 
+        price: "RM 7.00", 
+        image: "image/SPANISH_LATTE.png" 
+    },
+    { 
+        name: "Nesloo", 
+        description: "A delicious Malaysian blend of Nescafe and Milo, Neslo offers the perfect balance of bold coffee and sweet chocolate to energize your day.<br><br>", 
+        price: "RM 7.00", 
+        image: "image/NESLOO.png" 
+    }
+];
 
-        const nonCoffeeItems = [
-            { name: "Matcha Frappe", description: "Japanese-style Matcha blended with milk and ice.", price: "RM 5.50", image: "image/JAPANESE_MATCHA_FRAPPE.png" },
-            { name: "Genmaicha Latte", description: "A latte made with green tea instead of espresso.", price: "RM 5.25", image: "image/GREEN_TEA_LATTE.png" },
-            { name: "Biscoff Frappe", description: "A blend of black tea and spices with milk.", price: "RM 4.00", image: "image/BISCOFF_FRAPPE.png" },
-            { name: "Chocohazel Frappe", description: "Rich and creamy chocolate drink.", price: "RM 3.50", image: "image/CHOCOHAZEL_FRAPPE.png" },
-            { name: "Chocookies", description: "Premium matcha green tea blended with milk.", price: "RM 4.75", image: "image/CHOCOOKIES.png" },
-            { name: "Buttercreme Choco", description: "Premium matcha green tea blended with milk.", price: "RM 4.75", image: "image/BUTTERCREME_CHOCO.png" },
-            { name: "Lemonade", description: "Freshly squeezed lemons with a hint of sweetness.", price: "RM 3.00", image: "image/LEMONADE.png" },
-            { name: "Chesecream Matcha", description: "Refreshing black tea served cold.", price: "$2.50", image: "image/CHEESECREAM_MATCHA.png" },
-            { name: "Matcha", description: "Premium matcha green tea blended with milk.", price: "RM 4.75", image: "image/MATCHA.png" },
-            { name: "Strawberry Frappe", description: "Premium matcha green tea blended with milk.", price: "RM 4.75", image: "image/STRAWBERRY_FRAPPE.png" },
-            { name: "Yam Milk", description: "Premium matcha green tea blended with milk.", price: "RM 4.75", image: "image/YAM_MILK.png" },
-        ];
+
+const nonCoffeeItems = [
+    { 
+        name: "Matcha Frappe", 
+        description: "Premium Japanese Matcha blended with milk and ice, creating a creamy and refreshing drink with a hint of earthy sweetness.<br><br>", 
+        price: "RM 8.50", 
+        image: "image/JAPANESE_MATCHA_FRAPPE.png" 
+    },
+    { 
+        name: "Genmaicha Latte", 
+        description: "A comforting latte featuring the unique nutty and toasty flavors of genmaicha tea, perfectly blended with milk.<br><br>", 
+        price: "RM 7.50", 
+        image: "image/GREEN_TEA_LATTE.png" 
+    },
+    { 
+        name: "Biscoff Frappe", 
+        description: "A creamy and indulgent blend of crushed Biscoff cookies, milk, and ice, topped with whipped cream and drizzle of caramel biscoff.<br><br>", 
+        price: "RM 9.00", 
+        image: "image/BISCOFF_FRAPPE.png" 
+    },
+    { 
+        name: "Chocohazel Frappe", 
+        description: "Rich chocolate combined with hazelnut syrup, milk, and ice, creating a dessert-like drink that’s perfect for any chocolate lover.<br><br>", 
+        price: "RM 8.00", 
+        image: "image/CHOCOHAZEL_FRAPPE.png" 
+    },
+    { 
+        name: "Chocookies", 
+        description: "A nostalgic blend of milk, ice, and crushed cookies, topped with chocolate whipped cream and cookies for a sweet and crunchy treat.<br><br>", 
+        price: "RM 7.00", 
+        image: "image/CHOCOOKIES.png" 
+    },
+    { 
+        name: "Buttercreme Choco", 
+        description: "A creamy and indulgent hot chocolate with hints of butter and cream, providing a velvety smooth experience.<br><br>", 
+        price: "RM 8.00", 
+        image: "image/BUTTERCREME_CHOCO.png" 
+    },
+    { 
+        name: "Lemonade", 
+        description: "A bright and refreshing drink made with freshly squeezed lemons and sugar to start a fresh day with freshie moods. <br><br>", 
+        price: "RM 5.00", 
+        image: "image/LEMONADE.png" 
+    },
+    { 
+        name: "Cheesecream Matcha", 
+        description: "A unique blend of matcha tea topped with a creamy cheese foam, offering a perfect balance of savory and sweet flavors.<br><br>", 
+        price: "RM 9.50", 
+        image: "image/CHEESECREAM_MATCHA.png" 
+    },
+    { 
+        name: "Ori Matcha", 
+        description: "A drink made with premium Japanese green tea, offering a earthy flavor with a touch of natural sweetness. Perfect for matcha lovers.<br><br>", 
+        price: "RM 8.00", 
+        image: "image/MATCHA.png" 
+    },
+    { 
+        name: "Strawberry Frappe", 
+        description: "A refreshing and fruity drink made with strawberries, milk, and ice, creating a smooth and indulgent flavor.<br><br>", 
+        price: "RM 8.00", 
+        image: "image/STRAWBERRY_FRAPPE.png" 
+    },
+    { 
+        name: "Yam Milk", 
+        description: "A comforting drink made from yam, with full cream milk and a touch of sweetness, offering a unique and smooth taste.<br><br>", 
+        price: "RM 7.50", 
+        image: "image/YAM_MILK.png" 
+    },
+    { 
+        name: "Coconut Shake", 
+        description: "A refreshing blend of creamy coconut milk and ice, topped with a scoop of vanilla ice cream for the ultimate tropical treat.<br><br>", 
+        price: "RM 6.00", 
+        image: "image/COCONUTSHAKE.png" 
+    }
+    
+];
+
 
         const itemsPerPage = 3;
 
@@ -230,11 +362,12 @@
                     <img src="${item.image}" alt="${item.name}">
                     <h3>${item.name}</h3>
                     <p>${item.description}</p>
-                    <p>Price: ${item.price}</p>
+                    <p class="price">Price: ${item.price}</p> <!-- Add the 'price' class here -->
                     <button onclick="window.location.href='Login.html';">Add to Cart</button>
                 `;
                 menuContainer.appendChild(itemDiv);
             });
+
 
             paginationDots.innerHTML = '';
             for (let i = 0; i < Math.ceil(items.length / itemsPerPage); i++) {
