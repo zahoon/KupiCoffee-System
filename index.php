@@ -425,7 +425,7 @@
 </head>
 
 <body>
-    <?php include 'Homepage/header.html'; ?>
+    <?php include 'Homepage/header.php'; ?>
     <section id="home">
         <div class="content">
             <h3>Brew Joy. Sip Happiness.<br>Start Your Day With Us</h3>

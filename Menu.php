@@ -2,7 +2,7 @@
 <html lang="en">
 
 <head>
-    <?php include 'Homepage/header.html'; ?>
+    <?php include 'Homepage/header.php'; ?>
     <style>
         * {
             font-family: 'Lucida Sans', sans-serif;
