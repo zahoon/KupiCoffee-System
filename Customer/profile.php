@@ -1,5 +1,4 @@
 <?php
-include 'session.php';
 include 'dbkupi.php';
 
 // Check if the user is logged in

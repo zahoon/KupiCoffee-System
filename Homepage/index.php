@@ -2,8 +2,9 @@
 <html>
 
 <head>
-    <link rel="stylesheet" href="Home.css">
-    <script src="script.js"></script>
+    <?php include 'header.php';?>
+    <link rel="stylesheet" href="../Home.css">
+    <script src="../script.js"></script>
 
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
@@ -86,7 +87,7 @@
   #home {
             width: 100%;
             height: 100vh;
-            background-image:url(image/kupi.jpg);
+            background-image:url(../image/kupi.jpg);
             background-repeat: no-repeat;
             background-size: cover;
             background-position: 80%;
@@ -97,7 +98,7 @@
         .about {
             width: 100%;
             height: 950px;
-            background-image: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)), url(image/about.jpg);
+            background-image: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)), url(../image/about.jpg);
             background-size: cover;
             background-position: 80%;
             display: flex;
@@ -156,7 +157,7 @@
         .featured {
             width: 100%;
             height: 100vh;
-            background-image: url(image/top.jpg);
+            background-image: url(../image/top.jpg);
             background-size: cover;
             display: flex;
             justify-content: space-around;
@@ -215,7 +216,7 @@
 }
 
 .details{
-  background-image:linear-gradient(rgba(0,0,0,0.7),rgba(0,0,0,0.7)), url(image/kopi6.jpg);
+  background-image:linear-gradient(rgba(0,0,0,0.7),rgba(0,0,0,0.7)), url(../image/kopi6.jpg);
   background-size: cover;
 }
 .staf{
@@ -425,7 +426,6 @@
 </head>
 
 <body>
-    <?php include '../Homepage/header.php'; ?>
     <section id="home">
         <div class="content">
             <h3>Brew Joy. Sip Happiness.<br>Start Your Day With Us</h3>
@@ -435,7 +435,6 @@
             </p>
             <button onclick="window.location.href='Menu.php';" type="button" id="btn">Shop Now</button>
         </div>
-
     </section>
 
     <section id="about">
@@ -455,19 +454,18 @@
     </div>
 </section>
 
-
     <div class="featured">
         <h3 style="font-size: 40px; font-weight: bold; color:rgb(255, 169, 209);">Try Our Top 3<br>Picked Coffee !!</h3>
         <div class="coffee-box">
-            <img src="image/AMERICANO.png" class="Kopidepan">
+            <img src="../image/AMERICANO.png" class="Kopidepan">
             <div class="coffee-name">1. AMERICANO</div>
         </div>
         <div class="coffee-box">
-            <img src="image/MOCHA.png" class="Kopidepan">
+            <img src="../image/MOCHA.png" class="Kopidepan">
             <div class="coffee-name">2. MOCHA</div>
         </div>
         <div class="coffee-box">
-            <img src="image/LATTE.png" class="Kopidepan">
+            <img src="../image/LATTE.png" class="Kopidepan">
             <div class="coffee-name">3. LATTE</div>
         </div>
     </div>
@@ -484,7 +482,7 @@
             &copy; Copyright <strong><span>Kupi Coffee 2025</span></strong>. Zahin Owner
         </div>
     </footer>
-    <script src="script.js"></script>
+    <script src="../script.js"></script>
 </body>
 
 </html>

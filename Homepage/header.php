@@ -1,3 +1,9 @@
+<?php
+// Start the session at the very beginning
+if (session_status() == PHP_SESSION_NONE) {
+    session_start();
+}
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -12,18 +18,30 @@
     <header class="bg-amber-950 p-4 shadow-md flex justify-between items-center">
         <!-- Logo and Text Container -->
         <div class="flex items-center space-x-4">
-           <img src="../image/logowhite.png" alt="Logo" class="w-10">
-           <h1 class="text-2xl font-mono text-pink-100">KupiCoffee</h1>
+            <img src="../image/logowhite.png" alt="Logo" class="w-10">
+            <h1 class="text-2xl font-mono text-pink-100">KupiCoffee</h1>
         </div>
-        <div class="relative">
-            <button class="text-pink-100 font-medium" id="menu-button" aria-expanded="true" aria-haspopup="true">
-                Menu ▼
-            </button>
-            <div class="origin-top-right absolute right-0 mt-2 w-56 rounded-md shadow-lg bg-pink-100 ring-1 ring-black ring-opacity-5 hidden" role="menu" aria-orientation="vertical" aria-labelledby="menu-button" tabindex="-1">
-                <div class="py-1" role="none">
-                    <a href="index.php" class="text-pink-500 block px-4 py-2 text-sm hover:bg-gray-50" role="menuitem" tabindex="-1" id="menu-item-0">Home</a>
-                    <a href="Menu.php" class="text-pink-500 block px-4 py-2 text-sm hover:bg-gray-50" role="menuitem" tabindex="-1" id="menu-item-1">Menu</a>
-                    <a href="testlogin.php" class="text-pink-500 block px-4 py-2 text-sm hover:bg-gray-50" role="menuitem" tabindex="-1" id="menu-item-2">Login</a>
+        <div class="flex items-center space-x-4">
+            <?php
+            // Retrieve the username from the session
+            $username = isset($_SESSION['username']) ? $_SESSION['username'] : null;
+            if ($username) {
+                echo "<span class='text-pink-100'>Welcome back, $username!</span>";
+            } else {
+                echo "<span class='text-pink-100'>Hello user!</span>";
+            }
+            ?>
+            <div class="relative">
+                <button class="text-pink-100 font-medium" id="menu-button" aria-expanded="true" aria-haspopup="true">
+                    Menu ▼
+                </button>
+                <div class="origin-top-right absolute right-0 mt-2 w-56 rounded-md shadow-lg bg-pink-100 ring-1 ring-black ring-opacity-5 hidden" role="menu" aria-orientation="vertical" aria-labelledby="menu-button" tabindex="-1">
+                    <div class="py-1" role="none">
+                        <a href="../Homepage/index.php" class="text-pink-500 block px-4 py-2 text-sm hover:bg-gray-50" role="menuitem" tabindex="-1" id="menu-item-0">Home</a>
+                        <a href="../Homepage/Menu.php" class="text-pink-500 block px-4 py-2 text-sm hover:bg-gray-50" role="menuitem" tabindex="-1" id="menu-item-1">Menu</a>
+                        <a href="../Customer/testlogin.php" class="text-pink-500 block px-4 py-2 text-sm hover:bg-gray-50" role="menuitem" tabindex="-1" id="menu-item-2">Login</a>
+                        <a href="../Homepage/logout.php" class="text-pink-500 block px-4 py-2 text-sm hover:bg-red-200 underline decoration-solid" role="menuitem" tabindex="-1" id="menu-item-3">Logout</a>
+                    </div>
                 </div>
             </div>
         </div>
