@@ -113,7 +113,7 @@
 
         <!-- Team Member Cards -->
         <div class="team-card">
-            <img src="image/staff1.jpg" alt="Staff Member">
+            <img src="../image/staff1.jpg" alt="Staff Member">
             <h3 style="font-weight: bold;">ZAHIN EIFWWAT</h3>
             <p>Store Manager</p>
             <div class="social-icons">
@@ -125,7 +125,7 @@
 
             <!-- Team Member 2 -->
             <div class="team-card">
-                <img src="image/staff2.jpg" alt="Staff Member">
+                <img src="../image/staff2.jpg" alt="Staff Member">
                 <h3 style="font-weight: bold;">SHARIFAH NUR AIN</h3>
                 <p>Head Barista</p>
                 <div class="social-icons">
@@ -137,7 +137,7 @@
 
             <!-- Team Member 3 -->
             <div class="team-card">
-                <img src="image/staff3.jpg" alt="Staff Member">
+                <img src="../image/staff3.jpg" alt="Staff Member">
                 <h3 style="font-weight: bold;">ASYRAF HAZIQ</h3>
                 <p>Supervisor</p>
                 <div class="social-icons">
@@ -149,7 +149,7 @@
 
             <!-- Team Member 4 -->
             <div class="team-card">
-                <img src="image/staff4.jpg" alt="Staff Member">
+                <img src="../image/staff4.jpg" alt="Staff Member">
                 <h3 style="font-weight: bold;">RINA KARTIKA</h3>
                 <p>Latte Artist</p>
                 <div class="social-icons">
@@ -161,7 +161,7 @@
 
             <!-- Team Member 5 -->
             <div class="team-card">
-                <img src="image/staff5.jpg" alt="Staff Member">
+                <img src="../image/staff5.jpg" alt="Staff Member">
                 <h3 style="font-weight: bold;">WAFIUDDIN</h3>
                 <p>Marketing Specialist</p>
                 <div class="social-icons">

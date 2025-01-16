@@ -8,7 +8,7 @@
     <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
 </head>
 <body class="bg-gray-100">
-    <?php include '../Homepage/header.html';?>
+    <?php include '../Homepage/header.php';?>
     <div class="flex items-center justify-center h-screen">
     <div class="bg-white p-8 rounded-lg shadow-lg w-full max-w-sm">
         <h2 class="text-2xl font-bold mb-6 text-center">Login</h2>
