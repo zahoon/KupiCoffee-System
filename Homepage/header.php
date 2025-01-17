@@ -12,7 +12,7 @@
     <header class="bg-amber-950 p-4 shadow-md flex justify-between items-center">
         <!-- Logo and Text Container -->
         <div class="flex items-center space-x-4">
-           <img src="../image/logowhite.png" alt="Logo" class="w-10">
+           <img src="../image/logo.png" alt="Logo" class="w-10">
            <h1 class="text-2xl font-mono text-pink-100">KupiCoffee</h1>
         </div>
         <div class="relative">

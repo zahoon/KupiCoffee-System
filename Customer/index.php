@@ -86,7 +86,7 @@
   #home {
             width: 100%;
             height: 100vh;
-            background-image:url(image/kupi.jpg);
+            background-image:url(../image/kupi.jpg);
             background-repeat: no-repeat;
             background-size: cover;
             background-position: 80%;
@@ -97,7 +97,7 @@
         .about {
             width: 100%;
             height: 950px;
-            background-image: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)), url(image/about.jpg);
+            background-image: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)), url(../image/about.jpg);
             background-size: cover;
             background-position: 80%;
             display: flex;
@@ -156,7 +156,7 @@
         .featured {
             width: 100%;
             height: 100vh;
-            background-image: url(image/top.jpg);
+            background-image: url(../image/top.jpg);
             background-size: cover;
             display: flex;
             justify-content: space-around;
@@ -215,7 +215,7 @@
 }
 
 .details{
-  background-image:linear-gradient(rgba(0,0,0,0.7),rgba(0,0,0,0.7)), url(image/kopi6.jpg);
+  background-image:linear-gradient(rgba(0,0,0,0.7),rgba(0,0,0,0.7)), url(../image/kopi6.jpg);
   background-size: cover;
 }
 .staf{
@@ -428,12 +428,12 @@
     <?php include '../Homepage/header.php'; ?>
     <section id="home">
         <div class="content">
-            <h3>Brew Joy. Sip Happiness.<br>Start Your Day With Us</h3>
-            <p>Welcome to Kupi Coffee, where every sip is a celebration of flavor
+            <h3 style="font-size: 50px; font-weight: bold; color:rgb(60, 36, 1); margin-top: 20px;">Brew Joy. Sip Happiness.<br>Start Your Day With Us</h3>
+            <p style="font-size: 15x; font-weight: bold; color:rgb(60, 36, 1); margin-top: 20px;">Welcome to Kupi Coffee, where every sip is a celebration of flavor
                 <br>Let Kupi Coffee be your perfect start 
                 <br> to every adventure.
             </p>
-            <button onclick="window.location.href='Menu.php';" type="button" id="btn">Shop Now</button>
+            <button onclick="window.location.href='../Customer/Menu.php';" type="button" id="btn">Shop Now</button>
         </div>
 
     </section>
@@ -450,7 +450,7 @@
                 day or a comforting brew to fuel your next adventure, we’re here to make every sip unforgettable.
             </p>
             <!-- Button -->
-            <button onclick="window.location.href='MeetOurTeam.php';" type="button" id="btn">Get to know us</button>
+            <button onclick="window.location.href='../MeetOurTeam.php';" type="button" id="btn">Get to know us</button>
         </div>
     </div>
 </section>
@@ -459,15 +459,15 @@
     <div class="featured">
         <h3 style="font-size: 40px; font-weight: bold; color:rgb(255, 169, 209);">Try Our Top 3<br>Picked Coffee !!</h3>
         <div class="coffee-box">
-            <img src="image/AMERICANO.png" class="Kopidepan">
+            <img src="../image/AMERICANO.png" class="Kopidepan">
             <div class="coffee-name">1. AMERICANO</div>
         </div>
         <div class="coffee-box">
-            <img src="image/MOCHA.png" class="Kopidepan">
+            <img src="../image/MOCHA.png" class="Kopidepan">
             <div class="coffee-name">2. MOCHA</div>
         </div>
         <div class="coffee-box">
-            <img src="image/LATTE.png" class="Kopidepan">
+            <img src="../image/LATTE.png" class="Kopidepan">
             <div class="coffee-name">3. LATTE</div>
         </div>
     </div>
@@ -484,7 +484,6 @@
             &copy; Copyright <strong><span>Kupi Coffee 2025</span></strong>. Zahin Owner
         </div>
     </footer>
-    <script src="script.js"></script>
 </body>
 
 </html>
