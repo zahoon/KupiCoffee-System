@@ -15,7 +15,7 @@ if (session_status() == PHP_SESSION_NONE) {
 </head>
 <body>
     <!-- Navbar -->
-    <header class="bg-amber-950 p-4 shadow-md flex justify-between items-center">
+    <header class="bg-amber-950 p-6 shadow-md flex justify-between items-center fixed top-0 w-full z-50">
         <!-- Logo and Text Container -->
         <div class="flex items-center space-x-4">
            <img src="../image/logo.png" alt="Logo" class="w-10">

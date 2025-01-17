@@ -13,6 +13,7 @@
 
         body {
             background-color: rgb(255, 191, 230) !important; 
+            padding-top: 70px;
         }
 
         .menu-section {

@@ -15,7 +15,7 @@
   </style>
 </head>
 <body class="font-sans text-gray-700">
-  <?php include '../Homepage/header.html';?>
+  <?php include '../Homepage/header.php';?>
 
   <!-- Content Section -->
   <div class="p-8">

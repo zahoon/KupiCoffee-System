@@ -15,7 +15,7 @@
   </style>
 </head>
 <body class="font-sans text-gray-700">
-  <?php include '../Homepage/header.html';?>
+  <?php include '../Homepage/header.php';?>
   <!-- Statistics Section -->
   <div class="p-8">
     <h2 class="text-xl font-semibold text-pink-700 mb-4">Statistics</h2>
