@@ -81,9 +81,8 @@
     <div class="bg-pink-50 p-4 rounded-lg mb-6">
       <div class="flex justify-between items-center">
         <div class="flex items-center space-x-4">
-          <!-- Profile Image or Default Avatar -->
           <?php
-          $profileImage = '../image/staff2.jpg'; // Replace this with dynamic image path from database
+          $profileImage = '../image/staff2.jpg'; 
           if ($profileImage) {
             echo "<img src='$profileImage' alt='Ain Profile' class='profile-image'>";
           } else {
@@ -108,7 +107,6 @@
         <h2 class="text-xl font-semibold text-pink-700 mb-4">Active Orders</h2>
         <div class="scrollable-box">
           <?php
-          // Dummy active order data
           $activeOrder = [
             'id' => 8242,
             'status' => 'Preparing',
@@ -131,7 +129,6 @@
             </div>
           ";
 
-          // Loop through coffee items in the active order
           foreach ($activeOrder['items'] as $item) {
             echo "
             <div class='p-4 bg-pink-100 rounded-lg'>
@@ -146,7 +143,7 @@
             ";
           }
 
-          echo "</div>"; // Close the space-y-4 div
+          echo "</div>"; 
           ?>
         </div>
       </div>
@@ -157,7 +154,6 @@
         <div class="scrollable-box">
           <div class="space-y-4">
             <?php
-            // Dummy recent orders data
             $orderHistory = [
               ['id' => 8242, 'date' => '2023-10-01', 'amount' => 20.00],
               ['id' => 8235, 'date' => '2023-09-25', 'amount' => 15.00],
