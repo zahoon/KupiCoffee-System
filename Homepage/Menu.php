@@ -2,11 +2,7 @@
 <html lang="en">
 
 <head>
-<<<<<<<< HEAD:Customer/Menu.php
     <?php include '../Homepage/header.php'; ?>
-========
-    <?php include 'header.php'; ?>
->>>>>>>> fca6abbc40f14255cc3a6fe8c127d1383760a4bb:Homepage/Menu.php
     <style>
         * {
             font-family: 'Lucida Sans', sans-serif;
@@ -186,7 +182,7 @@
     $loggedin = true;
 
     if ($loggedin == true) {
-        echo '<button class="cart-button" onclick="window.location.href=\'inCart.php\'">
+        echo '<button class="cart-button" onclick="window.location.href=\'../Customer/c_inCart.php\'">
                 <img src="../image/cart.png" alt="Cart" class="cart-icon">
             </button>';
     }
@@ -403,7 +399,7 @@ const nonCoffeeItems = [
                     <p>${item.description}</p>
                     <p class="price">Price: ${item.price}</p> <!-- Add the 'price' class here -->
                     
-                    <button onclick="window.location.href='Login.html';">Add to Cart</button>
+                    <button onclick="window.location.href='login.html';">Add to Cart</button>
                 `;
                 menuContainer.appendChild(itemDiv);
             });
