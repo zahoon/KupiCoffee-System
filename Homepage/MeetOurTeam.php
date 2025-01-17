@@ -12,7 +12,7 @@
             font-family: 'Roboto', sans-serif;
             background-color:rgb(249, 223, 239);
             margin: 0;
-            padding: 0;
+            padding: 70px;
         }
 
         .team-section {
