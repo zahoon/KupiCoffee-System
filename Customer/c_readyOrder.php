@@ -102,7 +102,7 @@
 <div class="container">
     <!-- Delivery Button -->
     <div class="box">
-        <a href="delivery.php">
+        <a href="../Customer/c_delivery.php">
             <img src="../image/delivery.png" alt="Delivery">
             <p>Delivery</p>
         </a>
@@ -110,7 +110,7 @@
 
     <!-- Pickup Button -->
     <div class="box">
-        <a href="pickup.php">
+        <a href="../Customer/c_pickup.php">
             <img src="../image/pickup.png" alt="Pickup">
             <p>Pickup</p>
         </a>
