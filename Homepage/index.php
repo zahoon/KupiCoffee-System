@@ -433,7 +433,7 @@
                 <br>Let Kupi Coffee be your perfect start 
                 <br> to every adventure.
             </p>
-            <button onclick="window.location.href='../Customer/Menu.php';" type="button" id="btn">Shop Now</button>
+            <button onclick="window.location.href='../Homepage/menu.php';" type="button" id="btn">Shop Now</button>
         </div>
     </section>
 
@@ -449,7 +449,7 @@
                 day or a comforting brew to fuel your next adventure, we’re here to make every sip unforgettable.
             </p>
             <!-- Button -->
-            <button onclick="window.location.href='../MeetOurTeam.php';" type="button" id="btn">Get to know us</button>
+            <button onclick="window.location.href='../Homepage/meetOurTeam.php';" type="button" id="btn">Get to know us</button>
         </div>
     </div>
 </section>

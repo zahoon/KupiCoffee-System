@@ -1,3 +1,35 @@
+<?php
+session_start();
+
+// Initialize the cart if it doesn't exist
+if (!isset($_SESSION['cart'])) {
+    $_SESSION['cart'] = [];
+}
+
+// Function to add an order to the cart
+function addOrderToCart($order) {
+    $_SESSION['cart'][] = $order;
+}
+
+// Check if the form is submitted via POST
+if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+    $order = [
+        'milk' => htmlspecialchars($_POST['milk']),
+        'type' => htmlspecialchars($_POST['type']),
+        'size' => htmlspecialchars($_POST['size']),
+        'cream' => htmlspecialchars($_POST['cream']),
+        'temperature' => htmlspecialchars($_POST['temperature']),
+        // Use a placeholder image or dynamically assign an image URL based on the type
+        'image' => htmlspecialchars($_POST['image'] ?? 'https://via.placeholder.com/150')
+    ];
+    addOrderToCart($order);
+
+    // Redirect to prevent form resubmission on refresh
+    header('Location: ' . $_SERVER['PHP_SELF']);
+    exit;
+}
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -15,13 +47,13 @@
         }
 
         .container {
-            display: inline-block; /* Shrink-wrap to fit content */
-            margin: 20px auto; 
+            display: inline-block;
+            margin: 20px auto;
             padding: 20px;
             background-color: rgb(255, 206, 223);
             border-radius: 8px;
             box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-            text-align: center; 
+            text-align: center;
         }
 
         h1 {
@@ -29,39 +61,39 @@
             font-weight: bold;
             color: #7a2005;
             margin-top: 20px;
-            margin-bottom: 30px; 
+            margin-bottom: 30px;
             text-align: center;
         }
 
         .order {
-            max-width: 600px; 
-            margin: 15px auto; 
+            max-width: 600px;
+            margin: 15px auto;
             border: 1px solid #ddd;
             padding: 15px;
             border-radius: 8px;
             background-color: rgb(255, 253, 159);
             box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-            display: flex; /* Use flexbox for layout */
-            align-items: center; /* Center image and text vertically */
-            gap: 15px; /* Add spacing between image and text */
+            display: flex;
+            align-items: center;
+            gap: 15px;
         }
 
         .order img {
-            width: 150px; /* Set a fixed width for the image */
-            height: auto; 
-            object-fit: cover; /* Ensure image fits nicely within bounds */
+            width: 150px;
+            height: auto;
+            object-fit: cover;
             border-radius: 8px;
         }
 
         .order .details {
             text-align: left;
-            flex-grow: 1; /* Allow text to take up remaining space */
+            flex-grow: 1;
         }
 
         .order strong {
             font-size: 20px;
             color: #7a2005;
-            display: block; /* Ensure it starts a new line */
+            display: block;
             margin-bottom: 10px;
         }
 
@@ -71,7 +103,6 @@
             font-weight: bold;
         }
 
-        /* Floating Button */
         .floating-button {
             position: fixed;
             bottom: 20px;
@@ -98,45 +129,15 @@
 <?php include '../Homepage/header.php'; ?>
 
 <div class="container">
-    <h1  style = "font-size: 30px;
+    <h1 style = "font-size: 30px;
             font-weight: bold;
             color: #7a2005;
             margin-top: 20px;
             margin-bottom: 30px; 
             text-align: center;">Your Orders List</h1>
 
-    <?php
-    // Example orders
-    $orders = [
-        [
-            'milk' => 'Almond Milk',
-            'type' => 'Latte',
-            'size' => 'Large',
-            'cream' => 'Whipped Cream',
-            'temperature' => 'Hot',
-            'image' => '../image/SALTED_CARAMEL_FRAPPE.png'
-        ],
-        [
-            'milk' => 'Whole Milk',
-            'type' => 'Cappuccino',
-            'size' => 'Medium',
-            'cream' => 'No Cream',
-            'temperature' => 'Warm',
-            'image' => '../image/CHOCOOKIES.png'
-        ],
-        [
-            'milk' => 'Soy Milk',
-            'type' => 'Mocha',
-            'size' => 'Small',
-            'cream' => 'Extra Cream',
-            'temperature' => 'Cold',
-            'image' => '../image/YAM_MILK.png'
-        ],
-    ];
-    ?>
-
-    <?php if (!empty($orders)): ?>
-        <?php foreach ($orders as $index => $order): ?>
+    <?php if (!empty($_SESSION['cart'])): ?>
+        <?php foreach ($_SESSION['cart'] as $index => $order): ?>
             <div class="order">
                 <img src="<?php echo htmlspecialchars($order['image']); ?>" alt="Order Image">
                 <div class="details">
@@ -154,8 +155,9 @@
     <?php endif; ?>
 </div>
 
-<!-- Button -->
-<button class="floating-button" onclick="window.location.href='readyOrder.php';">Ready to Order</button>
+<?php if (!empty($_SESSION['cart'])): ?>
+    <button class="floating-button" onclick="window.location.href='../Customer/c_readyOrder.php';">Ready to Order</button>
+<?php endif; ?>
 
 </body>
 </html>

@@ -126,7 +126,7 @@
         <option value="Cold">Cold</option>
     </select>
 
-    <button onclick="window.location.href='../Customer/Menu.php';" type="button" class="form-button">Add to Cart</button>
+    <button onclick="window.location.href='../Homepage/menu.php';" type="button" class="form-button">Add to Cart</button>
 </form>
 
 </body>
