@@ -96,7 +96,7 @@
             color: #7a2005;
             margin-top: 60px;
             margin-bottom: 10px; 
-            text-align: center;">Choose your preferred order method</h1>
+            text-align: center;">How Would You Like to Receive Your Order?</h1>
 
 <!-- Buttons Container -->
 <div class="container">

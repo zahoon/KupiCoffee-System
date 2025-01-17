@@ -87,10 +87,10 @@
   #home {
             width: 100%;
             height: 100vh;
-            background-image:url(../image/kupi.jpg);
+            background-image:url(../image/index.png);
             background-repeat: no-repeat;
             background-size: cover;
-            background-position: 80%;
+            background-position: auto;
             font-family: Garamond;
             font-weight: bolder;
         }
@@ -428,8 +428,8 @@
 <body>
     <section id="home">
         <div class="content">
-            <h3 style="font-size: 50px; font-weight: bold; color:rgb(60, 36, 1); margin-top: 20px;">Brew Joy. Sip Happiness.<br>Start Your Day With Us</h3>
-            <p style="font-size: 15x; font-weight: bold; color:rgb(60, 36, 1); margin-top: 20px;">Welcome to Kupi Coffee, where every sip is a celebration of flavor
+            <h3 style= "font-size: 45px; font-weight: bold; color:rgb(60, 36, 1); margin-top: 20px;">Brew Joy. Sip Happiness.<br>Start Your Day With Us</h3>
+            <p style="font-size: 18px; font-weight: bold; color:rgb(60, 36, 1); margin-top: 20px;">Welcome to Kupi Coffee, where every sip is a celebration of flavor
                 <br>Let Kupi Coffee be your perfect start 
                 <br> to every adventure.
             </p>
