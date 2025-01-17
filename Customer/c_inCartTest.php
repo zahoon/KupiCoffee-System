@@ -12,6 +12,7 @@
             padding: 0;
             background-color: rgb(255, 206, 223);
             background-size: cover;
+            padding-top: 70px;
         }
 
         .container {

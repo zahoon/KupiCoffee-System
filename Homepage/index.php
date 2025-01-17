@@ -20,6 +20,7 @@
     background-color: rgb(255, 255, 255);
     background-size: cover;
     background-position: center;
+    padding-top: 70px;
 }
 
 .solid-box {

@@ -11,6 +11,7 @@
             background-image: url(../image/bgDel.png);
             background-size: cover;
             color: #444;
+            padding-top: 70px;
         }
 
         h1 {
