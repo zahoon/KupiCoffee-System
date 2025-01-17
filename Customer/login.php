@@ -1,7 +1,47 @@
-<!DOCTYPE html>
+<?php
+// Start the session at the very beginning
+if (session_status() == PHP_SESSION_NONE) {
+    session_start();
+}
+
+include("../Homepage/dbkupi.php");
+
+if ($_SERVER["REQUEST_METHOD"] == "POST") {
+    $username = $_POST['username'];
+    $password = $_POST['password'];
+
+    $sql = "SELECT * FROM customer WHERE c_username = :c_username AND c_pass = :c_pass";
+    $stmt = oci_parse($condb, $sql);
+
+    oci_bind_by_name($stmt, ':c_username', $username);
+    oci_bind_by_name($stmt, ':c_pass', $password);
+
+    oci_execute($stmt);
+
+    if ($row = oci_fetch_assoc($stmt)) {
+        // Set session variables directly
+        $_SESSION['custid'] = $row['CUSTID'];
+        $_SESSION['username'] = $row['C_USERNAME'];
+        $_SESSION['password'] = $row['C_PASS'];
+        $_SESSION['phonenum'] = $row['C_PHONENUM'];
+        $_SESSION['email'] = $row['C_EMAIL'];
+        $_SESSION['address'] = $row['C_ADDRESS'];
+
+        // Redirect to the homepage
+        header("Location: ../Homepage/index.php");
+        exit();
+    } else {
+        echo "Login failed!";
+        exit();
+    }
+
+    oci_free_statement($stmt);
+}
+?>
+<!-- <!DOCTYPE html>
 <html lang="en">
 <head>
-    <?php include '../Homepage/header.html'; ?>
+    
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -181,30 +221,7 @@
         </div>
     </div>
 
-    <?php
-    include("dbkupi.php");
-    if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['login'])) {
-        $input_username = $_POST['username'];
-        $input_password = $_POST['password'];
 
-        $sql = "SELECT * FROM customer WHERE c_username = :c_username AND c_pass = :c_pass";
-        $stmt = oci_parse($condb, $sql);
-
-        oci_bind_by_name($stmt, ':c_username', $input_username);
-        oci_bind_by_name($stmt, ':c_pass', $input_password);
-
-        oci_execute($stmt);
-
-        if ($row = oci_fetch_assoc($stmt)) {
-            echo "Login successful!";
-            header("Location: Menu.html");
-        } else {
-            echo "Login failed!";
-            header("Location: admin.html");
-        }
-
-        oci_free_statement($stmt);
-    }
-    ?>
+    
 </body>
-</html>
+</html> -->
