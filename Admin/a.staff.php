@@ -67,7 +67,7 @@
             $staff = [
               ['id' => 1, 'name' => 'Zahin Eifwat', 'role' => 'Store Manager', 'email' => 'zahin@gmail.com', 'phone' => '123-456-7890', 'join_date' => '2021-01-12', 'image' => '../image/staff1.jpg'],
               ['id' => 2, 'name' => 'Sharifah Nur Ain', 'role' => 'Head Barista', 'email' => 'Ipahh@gmail.com', 'phone' => '987-654-3210', 'join_date' => '2021-02-05', 'image' => '../image/staff2.jpg'],
-              ['id' => 3, 'name' => 'Asyraf Haziq', 'role' => 'Supervisor', 'email' => 'asyraf@gmail.com', 'phone' => '456-789-1230', 'join_date' => '2021-03-22', 'image' => '../image/staff3.jpg'],
+              ['id' => 3, 'name' => 'Asyraf Haziq', 'role' => 'Supervisor', 'email' => 'asyrafshamsul0@gmail.com', 'phone' => '011-12959316', 'join_date' => '2021-03-22', 'image' => '../image/staff3.jpg'],
               ['id' => 4, 'name' => 'Rina Kartika', 'role' => 'Latte Artist', 'email' => 'rinahs@gmail.com', 'phone' => '321-654-9870', 'join_date' => '2021-04-10', 'image' => '../image/staff4.jpg'],
               ['id' => 5, 'name' => 'Wafiuddin', 'role' => 'Marketing Specialist', 'email' => 'wafi@gmail.com', 'phone' => '111-222-3333', 'join_date' => '2021-05-01', 'image' => '../image/staff5.jpg'],
             ];
