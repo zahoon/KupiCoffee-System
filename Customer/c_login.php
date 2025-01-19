@@ -1,9 +1,5 @@
 <?php
-// Start the session at the very beginning
-if (session_status() == PHP_SESSION_NONE) {
-    session_start();
-}
-
+require_once '../Homepage/session.php';
 include("../Homepage/dbkupi.php");
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
@@ -19,13 +15,13 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     oci_execute($stmt);
 
     if ($row = oci_fetch_assoc($stmt)) {
-        // Set session variables directly
-        $_SESSION['custid'] = $row['CUSTID'];
-        $_SESSION['username'] = $row['C_USERNAME'];
-        $_SESSION['password'] = $row['C_PASS'];
-        $_SESSION['phonenum'] = $row['C_PHONENUM'];
-        $_SESSION['email'] = $row['C_EMAIL'];
-        $_SESSION['address'] = $row['C_ADDRESS'];
+        // Set session variables using setSession function
+        setSession('custid', $row['CUSTID']);
+        setSession('username', $row['C_USERNAME']);
+        setSession('password', $row['C_PASS']);
+        setSession('phonenum', $row['C_PHONENUM']);
+        setSession('email', $row['C_EMAIL']);
+        setSession('address', $row['C_ADDRESS']);
 
         // Redirect to the homepage
         header("Location: ../Homepage/index.php");
@@ -38,6 +34,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     oci_free_statement($stmt);
 }
 ?>
+
 <!-- <!DOCTYPE html>
 <html lang="en">
 <head>

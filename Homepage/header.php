@@ -1,9 +1,4 @@
-<?php
-// Start the session at the very beginning
-if (session_status() == PHP_SESSION_NONE) {
-    session_start();
-}
-?>
+<?php require_once '../Homepage/session.php'; ?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -23,8 +18,8 @@ if (session_status() == PHP_SESSION_NONE) {
         </div>
         <div class="flex items-center space-x-4">
             <?php
-            // Retrieve the username from the session
-            $username = isset($_SESSION['username']) ? $_SESSION['username'] : null;
+            // Retrieve the username from the session using getSession function
+            $username = getSession('username');
             if ($username) {
                 echo "<span class='text-pink-100'>Welcome back, $username!</span>";
             } else {

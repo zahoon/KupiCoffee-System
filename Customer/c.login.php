@@ -1,3 +1,4 @@
+<?php require_once '../Homepage/session.php'; ?>
 <!DOCTYPE html>  
 <html lang="en">  
 <head>  
@@ -37,14 +38,7 @@
             transition: color 0.3s ease;
         }
         .register-link:hover {
-            color: #5c1603;
-        }
-        .staff-login-button {
-            background-color: #FFD700;
-            transition: background-color 0.3s ease;
-        }
-        .staff-login-button:hover {
-            background-color: #DAA520;
+            color: #D97706;
         }
     </style>
 </head>  
@@ -65,9 +59,9 @@
                 <button type="submit" class="w-full text-white p-2 rounded-md login-button focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-opacity-50">Login</button>  
             </form>  
             <div class="mt-4 text-center">
-                <a href="testregister.php" class="register-link">Don't have an account yet? Register now!</a>
+                <a href="c.register.php" class="register-link">Don't have an account yet? Register now!</a>
             </div>
-            <button onclick="window.location.href='#'" class="w-full mt-4 text-white p-2 rounded-md staff-login-button focus:outline-none focus:ring-2 focus:ring-yellow-500 focus:ring-opacity-50">Staff Login</button>
+            <button onclick="window.location.href='#'" class="w-full mt-4 text-white p-2 rounded-md bg-amber-500 hover:bg-amber-600 focus:outline-none focus:ring-2 focus:ring-yellow-500 focus:ring-opacity-50">Staff Login</button>
         </div>  
     </div>  
 </body>  

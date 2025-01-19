@@ -2,6 +2,7 @@
 <html lang="en">
 
 <head>
+    <?php require_once '../Homepage/session.php'; ?>
     <?php include '../Homepage/header.php'; ?>
     <style>
         * {
@@ -180,15 +181,18 @@
 <body>
    <!-- Cart Button -->
     <?php
-    $loggedin = true;
+    $loggedin = getSession('username') ? true : false;
 
-    if ($loggedin == true) {
-        echo '<button class="cart-button" onclick="window.location.href=\'../Customer/c_inCart.php\'">
+    if ($loggedin) {
+        echo '<button class="cart-button" onclick="window.location.href=\'../Customer/c.inCart.php\'">
                 <img src="../image/cart.png" alt="Cart" class="cart-icon">
             </button>';
     }
     ?>
 
+    <script>
+        const isLoggedIn = <?php echo json_encode($loggedin); ?>;
+    </script>
 
     <!-- Coffee Menu Section -->
     <section class="menu-section">
@@ -398,9 +402,15 @@ const nonCoffeeItems = [
                     <img src="${item.image}" alt="${item.name}">
                     <h3>${item.name}</h3>
                     <p>${item.description}</p>
-                    <p class="price">Price: ${item.price}</p> <!-- Add the 'price' class here -->
+                    <p class="price">Price: ${item.price}</p>
                     
-                    <button onclick="window.location.href='login.html';">Add to Cart</button>
+                    ${isLoggedIn ? `
+                    <form action="../Customer/c.addToCart.php" method="post">
+                        <input type="hidden" name="item_id" value="${item.id}">
+                        <input type="hidden" name="item_name" value="${item.name}">
+                        <button type="submit">Add to Cart</button>
+                    </form>` : `
+                    <button onclick="window.location.href='..Customer/c.login.php';">Add to Cart</button>`}
                 `;
                 menuContainer.appendChild(itemDiv);
             });

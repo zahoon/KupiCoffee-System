@@ -1,14 +1,11 @@
 <?php
-// Start the session
-if (session_status() == PHP_SESSION_NONE) {
-    session_start();
-}
+// Include the session management file
+require_once '../Homepage/session.php';
 
-// Destroy the session
-session_unset();
-session_destroy();
+// Destroy the session using the destroySession function
+destroySession();
 
 // Redirect to the login page or home page
-header("Location: ../Customer/testlogin.php");
+header("Location: ../Customer/c.login.php");
 exit();
 ?>

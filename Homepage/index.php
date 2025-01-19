@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
-
 <head>
+    <?php require_once '../Homepage/session.php'; ?>
     <?php include 'header.php';?>
     <link rel="stylesheet" href="../Home.css">
     <script src="../script.js"></script>
@@ -483,10 +483,7 @@
             &copy; Copyright <strong><span>Kupi Coffee 2025</span></strong>. Zahin Owner
         </div>
     </footer>
-<<<<<<<< HEAD:Customer/index.php
-========
     <script src="../script.js"></script>
->>>>>>>> fca6abbc40f14255cc3a6fe8c127d1383760a4bb:Homepage/index.php
 </body>
 
 </html>
