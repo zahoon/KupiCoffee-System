@@ -84,7 +84,7 @@
 <?php include '../Homepage/header.php'; ?>
 
 <form action="addToCat.php" method="post">
-    <h1 style="font-size: 28px; font-weight: bold; color: #7a2005; margin-: 0px; text-decoration: underline;">Delivery Details</h1>
+    <h1 style="font-size: 28px; font-weight: bold; color: #7a2005; text-decoration: underline;">Delivery Details</h1>
 
     <label for="date">Date:</label>
     <div id="date" class="info">

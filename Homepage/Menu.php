@@ -410,7 +410,7 @@ const nonCoffeeItems = [
                         <input type="hidden" name="item_name" value="${item.name}">
                         <button type="submit">Add to Cart</button>
                     </form>` : `
-                    <button onclick="window.location.href='..Customer/c.login.php';">Add to Cart</button>`}
+                    <button onclick="window.location.href='../Customer/c.login.php';">Add to Cart</button>`}
                 `;
                 menuContainer.appendChild(itemDiv);
             });

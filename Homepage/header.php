@@ -13,8 +13,8 @@
     <header class="bg-amber-950 p-6 shadow-md flex justify-between items-center fixed top-0 w-full z-50">
         <!-- Logo and Text Container -->
         <div class="flex items-center space-x-4">
-           <img src="../image/logo.png" alt="Logo" class="w-10">
-           <h1 class="text-2xl font-mono text-pink-100">KupiCoffee</h1>
+           <a href="../Homepage/index.php" class="no-underline"> <img src="../image/logo.png" alt="Logo" class="w-10"> </a>
+           <a href="../Homepage/index.php" class="no-underline"> <h1 class="text-2xl font-mono text-pink-100">KupiCoffee</h1> </a>
         </div>
         <div class="flex items-center space-x-4">
             <?php
@@ -32,9 +32,9 @@
                 </button>
                 <div class="origin-top-right absolute right-0 mt-2 w-56 rounded-md shadow-lg bg-pink-100 ring-1 ring-black ring-opacity-5 hidden" role="menu" aria-orientation="vertical" aria-labelledby="menu-button" tabindex="-1">
                     <div class="py-1" role="none">
-                        <a href="../Homepage/index.php" class="text-pink-500 block px-4 py-2 text-sm hover:bg-gray-50" role="menuitem" tabindex="-1" id="menu-item-0">Home</a>
-                        <a href="../Homepage/Menu.php" class="text-pink-500 block px-4 py-2 text-sm hover:bg-gray-50" role="menuitem" tabindex="-1" id="menu-item-1">Menu</a>
-                        <a href="../Customer/testlogin.php" class="text-pink-500 block px-4 py-2 text-sm hover:bg-gray-50" role="menuitem" tabindex="-1" id="menu-item-2">Login</a>
+                        <a href="../Homepage/index.php" class="text-pink-500 block px-4 py-2 text-sm hover:bg-gray-50 no-underline" role="menuitem" tabindex="-1" id="menu-item-0">Home</a>
+                        <a href="../Homepage/Menu.php" class="text-pink-500 block px-4 py-2 text-sm hover:bg-gray-50 no-underline" role="menuitem" tabindex="-1" id="menu-item-1">Menu</a>
+                        <a href="../Customer/c.login.php" class="text-pink-500 block px-4 py-2 text-sm hover:bg-gray-50 no-underline" role="menuitem" tabindex="-1" id="menu-item-2">Login</a>
                         <a href="../Homepage/logout.php" class="text-pink-500 block px-4 py-2 text-sm hover:bg-red-200 underline decoration-solid" role="menuitem" tabindex="-1" id="menu-item-3">Logout</a>
                     </div>
                 </div>

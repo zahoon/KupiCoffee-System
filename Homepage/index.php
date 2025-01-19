@@ -2,7 +2,6 @@
 <html>
 <head>
     <?php require_once '../Homepage/session.php'; ?>
-    <?php include 'header.php';?>
     <link rel="stylesheet" href="../Home.css">
     <script src="../script.js"></script>
 
@@ -427,6 +426,7 @@
 </head>
 
 <body>
+    <?php include '../Homepage/header.php';?>
     <section id="home">
         <div class="content">
             <h3 style= "font-size: 45px; font-weight: bold; color:rgb(60, 36, 1); margin-top: 20px;">Brew Joy. Sip Happiness.<br>Start Your Day With Us</h3>
