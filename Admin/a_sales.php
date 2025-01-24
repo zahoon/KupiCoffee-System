@@ -1,98 +1,124 @@
-<?php  
-session_start();  
-include '../Admin/a.sales.php'; // Include your database connection file  
+<?php
+require_once '../Homepage/session.php';
+require_once '../Homepage/dbkupi.php';
 
-// Handle addition of new sale  
-if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['add'])) {  
-    $quantity = $_POST['quantity'];  
-    $pricePerOrder = $_POST['price_per_order'];  
-    $subtotal = $quantity * $pricePerOrder; // Calculate subtotal  
-    $kupid = $_POST['kupid']; // Assuming you have a way to select KUPID  
+function fetchTotalSalesAndPurchases()
+{
+    global $condb;
 
-    $conn = getConnection();  
-    $sql = 'INSERT INTO ORDERDETAIL (QUANTITY, PRICEPERORDER, SUBTOTAL, KUPID) VALUES (:quantity, :price_per_order, :subtotal, :kupid)';  
-    $stmt = oci_parse($conn, $sql);  
-    oci_bind_by_name($stmt, ':quantity', $quantity);  
-    oci_bind_by_name($stmt, ':price_per_order', $pricePerOrder);  
-    oci_bind_by_name($stmt, ':subtotal', $subtotal);  
-    oci_bind_by_name($stmt, ':kupid', $kupid);  
-    oci_execute($stmt);  
-    oci_free_statement($stmt);  
-    oci_close($conn);  
-}  
+    // Check if the database connection is valid
+    if (!$condb) {
+        echo "Error: Database connection is not established.";
+        return null;
+    }
 
-// Handle deletion of sale  
-if (isset($_GET['delete'])) {  
-    $orderDetailId = $_GET['delete'];  
+    // SQL to fetch total sales and total purchases
+    $sql = "
+    SELECT
+        COALESCE(SUM(SUBTOTAL), 0) AS total_sales,
+        COALESCE(SUM(QUANTITY), 0) AS total_purchases
+    FROM
+        ORDERDETAIL
+  ";
 
-    $conn = getConnection();  
-    $sql = 'DELETE FROM ORDERDETAIL WHERE ORDERDETAILID = :order_detail_id';  
-    $stmt = oci_parse($conn, $sql);  
-    oci_bind_by_name($stmt, ':order_detail_id', $orderDetailId);  
-    oci_execute($stmt);  
-    oci_free_statement($stmt);  
-    oci_close($conn);  
-}  
+    // Prepare and execute the query
+    $stid = oci_parse($condb, $sql);
+    $executeResult = oci_execute($stid);
 
-// Fetch all sales  
-$conn = getConnection();  
-$sql = 'SELECT * FROM ORDERDETAIL ORDER BY ORDERDETAILID DESC';  
-$stmt = oci_parse($conn, $sql);  
-oci_execute($stmt);  
-$sales = oci_fetch_all($stmt, $results, 0, -1, OCI_FETCHSTATEMENT_BY_ROW);  
-oci_free_statement($stmt);  
-oci_close($conn);  
-?>  
+    // Check for any OCI errors
+    if (!$executeResult) {
+        $error = oci_error($stid);
+        echo "OCI Execute Error: " . $error['message'];
+        return null;
+    }
 
-<!DOCTYPE html>  
-<html lang="en">  
-<head>  
-    <meta charset="UTF-8">  
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">  
-    <title>Sales Management</title>  
-    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">  
-</head>  
-<body class="bg-gray-100">  
-    <?php include '../Homepage/header.php'; ?>  
+    // Fetch the result
+    $result = oci_fetch_assoc($stid);
 
-    <div class="p-8">  
-        <h2 class="text-2xl font-bold mb-6">Manage Sales</h2>  
+    // Check if the result is fetched correctly
+    if ($result === false) {
+        echo "Error: No data found or failed to fetch result.";
+        return null;
+    }
 
-        <!-- Add Sale Form -->  
-        <form action="a_sales.php" method="POST" class="mb-8">  
-            <input type="number" name="quantity" placeholder="Quantity" required class="p-2 border border-gray-300 rounded">  
-            <input type="number" name="price_per_order" placeholder="Price Per Order" step="0.01" required class="p-2 border border-gray-300 rounded ml-2">  
-            <input type="number" name="kupid" placeholder="KUPID" required class="p-2 border border-gray-300 rounded ml-2"> <!-- Assuming you have a way to select KUPID -->  
-            <button type="submit" name="add" class="bg-blue-500 text-white p-2 rounded">Add Sale</button>  
-        </form>  
+    oci_free_statement($stid);
 
-        <!-- Sales Table -->  
-        <table class="min-w-full bg-white border border-gray-300">  
-            <thead>  
-                <tr>  
-                    <th class="border px-4 py-2">Order Detail ID</th>  
-                    <th class="border px-4 py-2">Quantity</th>  
-                    <th class="border px-4 py-2">Price Per Order</th>  
-                    <th class="border px-4 py-2">Subtotal</th>  
-                    <th class="border px-4 py-2">KUPID</th>  
-                    <th class="border px-4 py-2">Actions</th>  
-                </tr>  
-            </thead>  
-            <tbody>  
-                <?php foreach ($results as $sale): ?>  
-                    <tr>  
-                        <td class="border px-4 py-2"><?= htmlspecialchars($sale['ORDERDETAILID']) ?></td>  
-                        <td class="border px-4 py-2"><?= htmlspecialchars($sale['QUANTITY']) ?></td>  
-                        <td class="border px-4 py-2"><?= htmlspecialchars($sale['PRICEPERORDER']) ?></td>  
-                        <td class="border px-4 py-2"><?= htmlspecialchars($sale['SUBTOTAL']) ?></td>  
-                        <td class="border px-4 py-2"><?= htmlspecialchars($sale['KUPID']) ?></td>  
-                        <td class="border px-4 py-2">  
-                            <a href="a_sales.php?delete=<?= htmlspecialchars($sale['ORDERDETAILID']) ?>" class="text-red-500">Delete</a>  
-                        </td>  
-                    </tr>  
-                <?php endforeach; ?>  
-            </tbody>  
-        </table>  
-    </div>  
-</body>  
-</html>
+    // Return the result
+    return [
+        'total_sales' => $result['TOTAL_SALES'] ?? 0,
+        'total_purchases' => $result['TOTAL_PURCHASES'] ?? 0,
+    ];
+}
+
+function fetchTotalSalesAndPurchasesForMonth($selectedMonth)
+{
+    global $condb;
+
+    // Check if the database connection is valid
+    if (!$condb) {
+        echo "Error: Database connection is not established.";
+        return null;
+    }
+
+    // Ensure the selected month is in the 'YYYY-MM' format
+    $date = DateTime::createFromFormat('Y-m', $selectedMonth);
+    if (!$date) {
+        // Return JSON error if the date format is invalid
+        echo json_encode(["error" => "Invalid date format. Please use YYYY-MM."]);
+        exit; // Ensure no other output is sent
+    }
+
+    // Get the first and last day of the selected month
+    $startDate = $date->format('Y-m-01');  // First day of the month
+    $endDate = $date->format('Y-m-t');    // Last day of the month
+
+    // SQL to fetch total sales and total purchases for the selected date range
+    $sql = "
+    SELECT
+        COALESCE(SUM(od.SUBTOTAL), 0) AS total_sales,
+        COALESCE(SUM(od.QUANTITY), 0) AS total_purchases
+    FROM
+        ORDERDETAIL od
+    JOIN
+        ORDERTABLE o ON od.ORDERID = o.ORDERID
+    WHERE
+        o.KUPIDATE BETWEEN TO_DATE(:startDate, 'YYYY-MM-DD') AND TO_DATE(:endDate, 'YYYY-MM-DD')
+    ";
+
+    // Prepare and execute the query
+    $stid = oci_parse($condb, $sql);
+    oci_bind_by_name($stid, ':startDate', $startDate);
+    oci_bind_by_name($stid, ':endDate', $endDate);
+    $executeResult = oci_execute($stid);
+
+    // Check for any OCI errors
+    if (!$executeResult) {
+        $error = oci_error($stid);
+        echo json_encode(["error" => "OCI Execute Error: " . $error['message']]);
+        exit;
+    }
+
+    // Fetch the result
+    $result = oci_fetch_assoc($stid);
+
+    // Check if the result is fetched correctly
+    if ($result === false) {
+        echo json_encode(["error" => "No data found or failed to fetch result."]);
+        exit;
+    }
+
+    oci_free_statement($stid);
+
+    // Return the result as JSON
+    echo json_encode([
+        'total_sales' => $result['TOTAL_SALES'] ?? 0,
+        'total_purchases' => $result['TOTAL_PURCHASES'] ?? 0,
+    ]);
+    exit; // Ensure no other output is sent
+}
+
+// If the AJAX request is received
+if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['selectedDate'])) {
+    $selectedDate = $_POST['selectedDate'];
+    fetchTotalSalesAndPurchasesForMonth($selectedDate);
+}
