@@ -1,94 +1,66 @@
-<?php  
-session_start();  
-include '../Admin/kupi.php'; // Include your database connection file  
+<?php
+require_once '../Homepage/session.php';
+require_once '../Homepage/dbkupi.php';
 
-// Handle addition of new coffee item  
-if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['add'])) {  
-    $name = $_POST['name'];  
-    $description = $_POST['description'];  
-    $price = $_POST['price'];  
+function fetchKupi($currentPage, $itemsPerPage)
+{
+    global $condb;
 
-    $conn = getConnection();  
-    $sql = 'INSERT INTO KUPI (K_NAME, K_DESC, K_PRICE) VALUES (:name, :description, :price)';  
-    $stmt = oci_parse($conn, $sql);  
-    oci_bind_by_name($stmt, ':name', $name);  
-    oci_bind_by_name($stmt, ':description', $description);  
-    oci_bind_by_name($stmt, ':price', $price);  
-    oci_execute($stmt);  
-    oci_free_statement($stmt);  
-    oci_close($conn);  
-}  
+    $offset = ($currentPage - 1) * $itemsPerPage;
 
-// Handle deletion of coffee item  
-if (isset($_GET['delete'])) {  
-    $id = $_GET['delete'];  
+    // SQL to fetch paginated records
+    $sql = "
+    SELECT * FROM (
+        SELECT 
+            k.kupiID,
+            k.k_name,
+            k.k_price,
+            k.k_desc,
+            ROW_NUMBER() OVER (ORDER BY k.kupiID) AS row_number
+        FROM kupi k
+    ) subquery
+    WHERE subquery.row_number > :start_row AND subquery.row_number <= :end_row
+    ";
 
-    $conn = getConnection();  
-    $sql = 'DELETE FROM KUPI WHERE KUPID = :id';  
-    $stmt = oci_parse($conn, $sql);  
-    oci_bind_by_name($stmt, ':id', $id);  
-    oci_execute($stmt);  
-    oci_free_statement($stmt);  
-    oci_close($conn);  
-}  
+    $stid = oci_parse($condb, $sql);
+    $endRow = $offset + $itemsPerPage;
+    $startRow = $offset;
 
-// Fetch all coffee items  
-$conn = getConnection();  
-$sql = 'SELECT * FROM KUPI';  
-$stmt = oci_parse($conn, $sql);  
-oci_execute($stmt);  
-$coffeeItems = oci_fetch_all($stmt, $results, 0, -1, OCI_FETCHSTATEMENT_BY_ROW);  
-oci_free_statement($stmt);  
-oci_close($conn);  
-?>  
+    oci_bind_by_name($stid, ':end_row', $endRow);
+    oci_bind_by_name($stid, ':start_row', $startRow);
+    if (!oci_execute($stid)) {
+        oci_free_statement($stid);
+        echo json_encode(['error' => 'Failed to execute query']);
+        exit;
+    }
 
-<!DOCTYPE html>  
-<html lang="en">  
-<head>  
-    <meta charset="UTF-8">  
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">  
-    <title>Coffee Management</title>  
-    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">  
-</head>  
-<body class="bg-gray-100">  
-    <?php include '../Homepage/header.php'; ?>  
+    $kupiRecords = [];
+    while ($row = oci_fetch_assoc($stid)) {
+        $kupiRecords[] = $row;
+    }
+    oci_free_statement($stid);
 
-    <div class="p-8">  
-        <h2 class="text-2xl font-bold mb-6">Manage Coffee Items</h2>  
+    // Get total record count
+    $countQuery = "SELECT COUNT(*) AS total FROM kupi";
+    $countStid = oci_parse($condb, $countQuery);
+    if (!oci_execute($countStid)) {
+        oci_free_statement($countStid);
+        echo json_encode(['error' => 'Failed to fetch total records']);
+        exit;
+    }
+    $totalRow = oci_fetch_assoc($countStid);
+    oci_free_statement($countStid);
 
-        <!-- Add Coffee Item Form -->  
-        <form action="a_kupi.php" method="POST" class="mb-8">  
-            <input type="text" name="name" placeholder="Name" required class="p-2 border border-gray-300 rounded">  
-            <input type="text" name="description" placeholder="Description" required class="p-2 border border-gray-300 rounded">  
-            <input type="number" name="price" placeholder="Price" step="0.01" required class="p-2 border border-gray-300 rounded">  
-            <button type="submit" name="add" class="bg-blue-500 text-white p-2 rounded">Add Coffee Item</button>  
-        </form>  
+    $totalPages = ceil($totalRow['TOTAL'] / $itemsPerPage);
 
-        <!-- Coffee Items Table -->  
-        <table class="min-w-full bg-white border border-gray-300">  
-            <thead>  
-                <tr>  
-                    <th class="border px-4 py-2">KUPID</th>  
-                    <th class="border px-4 py-2">Name</th>  
-                    <th class="border px-4 py-2">Description</th>  
-                    <th class="border px-4 py-2">Price</th>  
-                    <th class="border px-4 py-2">Actions</th>  
-                </tr>  
-            </thead>  
-            <tbody>  
-                <?php foreach ($results as $item): ?>  
-                    <tr>  
-                        <td class="border px-4 py-2"><?= htmlspecialchars($item['KUPID']) ?></td>  
-                        <td class="border px-4 py-2"><?= htmlspecialchars($item['K_NAME']) ?></td>  
-                        <td class="border px-4 py-2"><?= htmlspecialchars($item['K_DESC']) ?></td>  
-                        <td class="border px-4 py-2"><?= htmlspecialchars($item['K_PRICE']) ?></td>  
-                        <td class="border px-4 py-2">  
-                            <a href="a_kupi.php?delete=<?= htmlspecialchars($item['KUPID']) ?>" class="text-red-500">Delete</a>  
-                        </td>  
-                    </tr>  
-                <?php endforeach; ?>  
-            </tbody>  
-        </table>  
-    </div>  
-</body>  
-</html>
+    echo json_encode(['kupi' => $kupiRecords, 'totalPages' => $totalPages]);
+    exit;
+}
+
+// Handle AJAX requests for fetching data
+if (isset($_GET['page'])) {
+    $currentPage = (int)$_GET['page'];
+    $itemsPerPage = 10;
+    fetchKupi($currentPage, $itemsPerPage);
+}
+?>

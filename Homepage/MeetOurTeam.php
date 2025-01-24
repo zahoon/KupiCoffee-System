@@ -119,7 +119,7 @@
             <div class="social-icons">
                 <a href="#"><i class="fa-brands fa-twitter"></i></a>
                 <a href="#"><i class="fa-brands fa-facebook"></i></a>
-                <a href="#"><i class="fa-brands fa-instagram"></i></a>
+                <a href="https://www.instagram.com/damienxdd/"><i class="fa-brands fa-instagram"></i></a>
             </div>
         </div>
 
@@ -141,9 +141,9 @@
                 <h3 style="font-weight: bold;">ASYRAF HAZIQ</h3>
                 <p>Supervisor</p>
                 <div class="social-icons">
-                    <a href="#"><i class="fa-brands fa-twitter"></i></a>
+                    <a href="https://x.com/asyrafhziq_"><i class="fa-brands fa-twitter"></i></a>
                     <a href="#"><i class="fa-brands fa-facebook"></i></a>
-                    <a href="#"><i class="fa-brands fa-instagram"></i></a>
+                    <a href="https://www.instagram.com/acapppx._/"><i class="fa-brands fa-instagram"></i></a>
                 </div>
             </div>
 

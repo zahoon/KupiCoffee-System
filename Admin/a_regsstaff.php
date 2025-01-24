@@ -1,65 +1,58 @@
-<?php  
-session_start();  
-include '../Admin/a.regsstaff.php'; // Include your database connection file  
+<?php
+// Include the necessary files
+require_once '../Homepage/session.php'; // for session handling
+require_once '../Homepage/dbkupi.php'; // for database connection
 
-// Initialize variables for error and success messages  
-$error = '';  
-$success = '';  
+// Get form data
+if (isset($_POST['register'])) {
+    $username = $_POST['username'];
+    $password = $_POST['password'];
+    $phone = $_POST['phone'];
+    $email = $_POST['email'];
+    $role = $_POST['role'];
+    $adminid = null; // Default value for staff role
 
-// Handle staff registration  
-if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['register'])) {  
-    $username = trim($_POST['username']);  
-    $password = password_hash(trim($_POST['password']), PASSWORD_DEFAULT); // Hash the password  
-    $phone = trim($_POST['phone']);  
-    $email = trim($_POST['email']);  
-    $adminid = $_POST['adminid'];  
+    // Hash the password for security
+    // $hashedPassword = password_hash($password, PASSWORD_DEFAULT);  // Ensure password is hashed
 
-    // Validate inputs  
-    if (empty($username) || empty($password) || empty($phone) || empty($email)) {  
-        $error = "All fields are required.";  
-    } else {  
-        // Insert into database  
-        $conn = getConnection();  
-        $sql = 'INSERT INTO STAFF (S_USERNAME, S_PASS, S_PHONENUM, S_EMAIL, ADMINID) VALUES (:username, :password, :phone, :email, :adminid)';  
-        $stmt = oci_parse($conn, $sql);  
-        oci_bind_by_name($stmt, ':username', $username);  
-        oci_bind_by_name($stmt, ':password', $password);  
-        oci_bind_by_name($stmt, ':phone', $phone);  
-        oci_bind_by_name($stmt, ':email', $email);  
-        oci_bind_by_name($stmt, ':adminid', $adminid);  
-        
-        if (oci_execute($stmt)) {  
-            $success = "Staff registered successfully!";  
-        } else {  
-            $error = "Error registering staff.";  
-        }  
+    // Set adminid for admin role
+    if ($role == 'admin') {
+        $adminid = 1; // Set adminid to 1 for Admin role
+    }
 
-        oci_free_statement($stmt);  
-        oci_close($conn);  
-    }  
-}  
-?>  
+    // Create SQL query for Oracle
+    $sql = "INSERT INTO staff (s_username, s_pass, s_phonenum, s_email, adminid) 
+            VALUES (:username, :password, :phone, :email, :adminid)";
 
-<!DOCTYPE html>  
-<html lang="en">  
-<head>  
-    <meta charset="UTF-8">  
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">  
-    <title>Registration Result</title>  
-    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">  
-</head>  
-<body class="bg-gray-100">  
-    <div class="flex justify-center items-center h-screen">  
-        <div class="bg-white p-8 rounded-lg shadow-md w-96">  
-            <h2 class="text-2xl font-bold mb-6 text-center">Registration Result</h2>  
-            <?php if ($error): ?>  
-                <div class="bg-red-200 text-red-600 p-2 rounded mb-4"><?= htmlspecialchars($error) ?></div>  
-            <?php endif; ?>  
-            <?php if ($success): ?>  
-                <div class="bg-green-200 text-green-600 p-2 rounded mb-4"><?= htmlspecialchars($success) ?></div>  
-            <?php endif; ?>  
-            <a href="a_regstaff.php" class="text-blue-500">Register another staff member</a>  
-        </div>  
-    </div>  
-</body>  
-</html>
+    // Prepare the Oracle statement
+    $stmt = oci_parse($condb, $sql);
+
+    // Bind the variables to the statement
+    oci_bind_by_name($stmt, ":username", $username);
+    oci_bind_by_name($stmt, ":password", $password);
+    oci_bind_by_name($stmt, ":phone", $phone);
+    oci_bind_by_name($stmt, ":email", $email);
+    oci_bind_by_name($stmt, ":adminid", $adminid);
+
+    // Execute the statement
+    if (oci_execute($stmt)) {
+        // Success: Redirect to login page after a short delay
+        echo "
+        <div class='fixed top-0 right-0 mt-4 mr-4 max-w-xs w-full bg-green-100 border-l-4 border-green-500 text-green-700 p-4 rounded shadow-md'>
+            <strong class='font-bold'>Success!</strong>
+            <span>Your staff member has been successfully registered.</span>
+        </div>
+        ";
+
+        // Redirect to the login page after the success message is shown
+        header("refresh:2;url=../Staff/s_login.php");  // Redirect after 2 seconds
+        exit;  // Ensure no further code is executed
+    } else {
+        $error = oci_error($stmt);
+        echo "Error: " . $error['message'];
+    }
+
+    // Close the statement and connection
+    oci_free_statement($stmt);
+    oci_close($condb);
+}
