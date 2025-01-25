@@ -66,7 +66,7 @@
                 <!-- Self Pickup Card -->  
                 <div class="card bg-blue-200 p-6 rounded-lg cursor-pointer hover:bg-blue-300 transition duration-300" onclick="window.location.href='s_orderPickup.php';">  
                     <div class="flex flex-col items-center">  
-                        <img src="../image/pickup.png" alt="Pickup" class="w-24 h-24 mb-4">  
+                        <img src="../image/pickup.png" alt="Pickup" class="w-32 h-32 mb-4">  <!-- Increased size here -->  
                         <h3 class="text-xl font-bold">PICKUP</h3>  
                     </div>  
                 </div>  
@@ -74,7 +74,7 @@
                 <!-- Delivery Card -->  
                 <div class="card bg-gray-200 p-6 rounded-lg cursor-pointer hover:bg-gray-300 transition duration-300" onclick="window.location.href='s_orderDelivery.php';">  
                     <div class="flex flex-col items-center">  
-                        <img src="../image/delivery.png" alt="Delivery" class="w-24 h-24 mb-4">  
+                        <img src="../image/delivery.png" alt="Delivery" class="w-32 h-32 mb-4">  <!-- Increased size here -->  
                         <h3 class="text-xl font-bold">DELIVERY</h3>  
                     </div>  
                 </div>  
@@ -149,6 +149,29 @@
         </div>  
     </div>  
 
+    <!-- Decline Popup -->  
+    <div id="declinePopup" class="popup">  
+        <div class="popup-content">  
+            <h2 class="text-xl font-bold text-pink-700 mb-4">Decline Order</h2>  
+            <p class="text-gray-700">Please select a reason for declining the order.</p>  
+            <div>  
+                <select id="declineReason" onchange="toggleOtherReason()">  
+                    <option value="">Select reason</option>  
+                    <option value="Out of stock">Out of stock</option>  
+                    <option value="Customer request">Customer request</option>  
+                    <option value="Other">Other</option>  
+                </select>  
+                <div id="otherReasonContainer" class="hidden mt-2">  
+                    <input type="text" id="otherReason" placeholder="Please specify" class="border border-gray-300 p-2 w-full" />  
+                </div>  
+            </div>  
+            <div class="mt-4 flex justify-between">  
+                <button onclick="declineOrder(event)" class="bg-red-500 text-white px-4 py-1 rounded hover:bg-red-600">Submit</button>  
+                <button onclick="closeDeclinePopup()" class="text-gray-500 hover:underline">Cancel</button>  
+            </div>  
+        </div>  
+    </div>  
+
     <script>  
         let currentOrderId = null;  
 
@@ -162,6 +185,16 @@
             document.getElementById('otherReasonContainer').classList.add('hidden');  
             document.getElementById('declineReason').value = '';  
             document.getElementById('otherReason').value = '';  
+        }  
+
+        function toggleOtherReason() {  
+            const reasonSelect = document.getElementById('declineReason');  
+            const otherReasonContainer = document.getElementById('otherReasonContainer');  
+            if (reasonSelect.value === 'Other') {  
+                otherReasonContainer.classList.remove('hidden');  
+            } else {  
+                otherReasonContainer.classList.add('hidden');  
+            }  
         }  
 
         function declineOrder(event) {  
