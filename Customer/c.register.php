@@ -13,26 +13,43 @@
             color: #444;
         }
         .login-container {
-            background: linear-gradient(135deg, rgba(255, 223, 186, 0.8) 0%, rgba(255, 159, 159, 0.8) 100%);
+            background: rgb(255, 248, 207); 
             box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
         }
         .login-title, .input-label {
             color: #7a2005;
             font-family: 'Roboto', sans-serif;
         }
+        .login-button {
+            background-color: #7a2005;
+            transition: background-color 0.3s ease;
+        }
+        .login-button:hover {
+            background-color: #5c1603;
+        }
+        .register-link {
+            color: #7a2005;
+            text-decoration: underline;
+            cursor: pointer;
+            transition: color 0.3s ease;
+        }
+        .register-link:hover {
+            color: #D97706;
+        }
     </style>
 </head>  
 <body class="bg-gray-100">
     <?php include '../Homepage/header.php';?>
-    <div class="flex items-center justify-center h-screen">
-        <div class="bg-white p-8 rounded-lg shadow-lg w-full max-w-sm login-container">
+    <!-- Add padding-top to create a gap between the header and the container -->
+    <div class="flex items-center justify-center h-screen pt-20"> 
+        <div class="login-container p-8 rounded-lg shadow-lg w-full max-w-sm">
             <h2 class="text-2xl font-bold mb-6 text-center login-title">Register</h2>
             <form action="c_register.php" method="POST">
                 <div class="mb-4">
                     <label for="username" class="block text-sm font-medium input-label">Username</label>
                     <input type="text" id="username" name="username" required class="mt-1 p-2 w-full border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500">
                 </div>
-                <div class="mb-6">
+                <div class="mb-4">
                     <label for="password" class="block text-sm font-medium input-label">Password</label>
                     <input type="password" id="password" name="password" required class="mt-1 p-2 w-full border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500">
                 </div>
@@ -48,9 +65,9 @@
                     <label for="address" class="block text-sm font-medium input-label">Address</label>
                     <input type="text" id="address" name="address" required class="mt-1 p-2 w-full border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500">
                 </div>
-                <button type="submit" class="w-full bg-green-500 text-white p-2 rounded-md hover:bg-green-600 focus:outline-none focus:ring-2 focus:ring-green-500 focus:ring-opacity-50">Register !</button>
+                <button type="submit" class="w-full text-white p-2 rounded-md login-button focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-opacity-50">Register</button>
             </form>
-            <button onclick="window.location.href='c.login.php'" class="w-full mt-4 bg-orange-500 text-white p-2 rounded-md hover:bg-orange-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-opacity-50">Back to Login</button>
+            <button onclick="window.location.href='c.login.php'" class="w-full mt-4 text-white p-2 rounded-md bg-amber-500 hover:bg-amber-600 focus:outline-none focus:ring-2 focus:ring-yellow-500 focus:ring-opacity-50">Back to Login</button>
         </div>
     </div>
 </body>  
