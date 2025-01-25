@@ -184,7 +184,7 @@
     $loggedin = getSession('username') ? true : false;
 
     if ($loggedin) {
-        echo '<button class="cart-button" onclick="window.location.href=\'../Customer/c.inCart.php\'">
+        echo '<button class="cart-button" onclick="window.location.href=\'../Customer/c.inCartNew.php\'">
                 <img src="../image/cart.png" alt="Cart" class="cart-icon">
             </button>';
     }
