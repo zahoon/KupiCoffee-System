@@ -1,10 +1,35 @@
 <?php
 require_once '../Homepage/session.php';
 
-// // Initialize the cart if it doesn't exist
-// if (!isset($_SESSION['cart'])) {
-//     $_SESSION['cart'] = [];
-// }
+// Initialize the cart if it doesn't exist
+if (!isset($_SESSION['cart'])) {
+    $_SESSION['cart'] = [];
+}
+/*
+// Function to add an order to the cart
+function addOrderToCart($order) {
+    $_SESSION['cart'][] = $order;
+}
+
+// Check if the form is submitted via POST
+if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+    $order = [
+        'coffee_name' => htmlspecialchars($_POST['coffee_name']), // Add coffee name
+        'milk' => htmlspecialchars($_POST['milk']),
+        'temperature' => htmlspecialchars($_POST['temperature']),
+        'size' => htmlspecialchars($_POST['size']),
+        'cream' => htmlspecialchars($_POST['cream']),
+        'bean' => htmlspecialchars($_POST['bean']),
+        'date' => htmlspecialchars($_POST['date']),
+        // Use a placeholder image or dynamically assign an image URL based on the type
+        'image' => htmlspecialchars($_POST['image'] ?? 'https://via.placeholder.com/150')
+    ];
+    addOrderToCart($order);
+
+    // Redirect to prevent form resubmission on refresh
+    header('Location: ' . $_SERVER['PHP_SELF']);
+    exit;
+} */
 ?>
 
 <!DOCTYPE html>
@@ -107,19 +132,26 @@ require_once '../Homepage/session.php';
 <?php include '../Homepage/header.php'; ?>
 
 <div class="container">
-    <h1>Your Orders List</h1>
+    <h1 style = "font-size: 30px;
+            font-weight: bold;
+            color: #7a2005;
+            margin-top: 20px;
+            margin-bottom: 30px; 
+            text-align: center;">Your Orders List</h1>
 
-    <?php if (!empty($_SESSION['cart'])): ?>
+<?php if (!empty($_SESSION['cart'])): ?>
         <?php foreach ($_SESSION['cart'] as $index => $order): ?>
             <div class="order">
+                <img src="<?php echo htmlspecialchars($order['image']); ?>" alt="Order Image">
                 <div class="details">
                     <strong>Order <?php echo $index + 1; ?></strong>
-                    <p>Milk: <?php echo isset($order['milk']) ? htmlspecialchars($order['milk']) : 'Not specified'; ?></p>
-                    <p>Type: <?php echo isset($order['type']) ? htmlspecialchars($order['type']) : 'Not specified'; ?></p>
-                    <p>Size: <?php echo isset($order['size']) ? htmlspecialchars($order['size']) : 'Not specified'; ?></p>
-                    <p>Cream: <?php echo isset($order['cream']) ? htmlspecialchars($order['cream']) : 'Not specified'; ?></p>
-                    <p>Bean: <?php echo isset($order['bean']) ? htmlspecialchars($order['bean']) : 'Not specified'; ?></p>
-                    <p>Date: <?php echo isset($order['date']) ? htmlspecialchars($order['date']) : 'Not specified'; ?></p>
+                    <p>Coffee Name: <?php echo htmlspecialchars($order['coffee_name']); ?></p>
+                    <p>Milk: <?php echo htmlspecialchars($order['milk']); ?></p>
+                    <p>Temperature: <?php echo htmlspecialchars($order['temperature']); ?></p>
+                    <p>Size: <?php echo htmlspecialchars($order['size']); ?></p>
+                    <p>Cream: <?php echo htmlspecialchars($order['cream']); ?></p>
+                    <p>Bean: <?php echo htmlspecialchars($order['bean']); ?></p>
+                    <p>Date: <?php echo htmlspecialchars($order['date']); ?></p>
                 </div>
             </div>
         <?php endforeach; ?>

@@ -1,3 +1,18 @@
+<?php
+session_start(); // Start the session to manage session variables
+?>
+<?php
+// Handle the method selection and redirect to the receipt page
+if (isset($_GET['method'])) {
+    $method = $_GET['method'];
+    if ($method === 'delivery' || $method === 'pickup') {
+        $_SESSION['order_method'] = $method; // Set the order method in the session
+        header("Location: c_receipt.php"); // Redirect to the receipt page
+        exit();
+    }
+}
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -92,7 +107,7 @@
 <?php include '../Homepage/header.php'; ?>
 
 <!-- Page Title -->
-<h1 style = "font-size: 30px;
+<h1 style="font-size: 30px;
             font-weight: bold;
             color: #7a2005;
             margin-top: 60px;
@@ -103,7 +118,7 @@
 <div class="container">
     <!-- Delivery Button -->
     <div class="box">
-        <a href="../Customer/c.delivery.php">
+        <a href="?method=delivery">
             <img src="../image/delivery.png" alt="Delivery">
             <p>Delivery</p>
         </a>
@@ -111,12 +126,14 @@
 
     <!-- Pickup Button -->
     <div class="box">
-        <a href="../Customer/c.pickup.php">
+        <a href="?method=pickup">
             <img src="../image/pickup.png" alt="Pickup">
             <p>Pickup</p>
         </a>
     </div>
 </div>
+
+
 
 </body>
 </html>
