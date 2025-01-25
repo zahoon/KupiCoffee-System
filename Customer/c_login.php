@@ -1,11 +1,17 @@
 <?php
+// Include required files for session management and database connection
 require_once '../Homepage/session.php';
 include("../Homepage/dbkupi.php");
 
+// Start the session
+session_start();
+
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
+    // Retrieve form data
     $username = $_POST['username'];
     $password = $_POST['password'];
 
+    // Query to validate the username and password
     $sql = "SELECT * FROM customer WHERE c_username = :c_username AND c_pass = :c_pass";
     $stmt = oci_parse($condb, $sql);
 
@@ -14,8 +20,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
     oci_execute($stmt);
 
+    // If a matching user is found
     if ($row = oci_fetch_assoc($stmt)) {
-        // Set session variables using setSession function
+        // Set session variables
         setSession('custid', $row['CUSTID']);
         setSession('username', $row['C_USERNAME']);
         setSession('password', $row['C_PASS']);
@@ -23,11 +30,13 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         setSession('email', $row['C_EMAIL']);
         setSession('address', $row['C_ADDRESS']);
 
-        // Redirect to the homepage
+        // Redirect to the homepage or dashboard
         header("Location: ../Homepage/index.php");
         exit();
     } else {
-        echo "Login failed!";
+        // Login failed, set error message
+        $_SESSION['error'] = "Incorrect username or password.";
+        header("Location: c_login.php");
         exit();
     }
 
@@ -196,6 +205,12 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
     <div class="login-page">
         <div class="form">
+        <?php
+            if (isset($_SESSION['error'])) {
+                echo "<div class='error'>{$_SESSION['error']}</div>";
+                unset($_SESSION['error']); // Clear the error message after displaying
+            }
+            ?>
             <form class="register-form" action="" method="POST">
                 <h2><i class="fas fa-lock"></i> Register</h2>
                 <input type="text" id="username" name="username" placeholder="Username*" required/>

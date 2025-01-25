@@ -1,4 +1,10 @@
-<?php require_once '../Homepage/session.php'; ?>
+<?php
+session_start();
+// Check for error message in session
+$error = isset($_SESSION['error']) ? $_SESSION['error'] : '';
+// Clear the error message after displaying it
+unset($_SESSION['error']);
+?>
 <!DOCTYPE html>  
 <html lang="en">  
 <head>  
@@ -40,14 +46,23 @@
         .register-link:hover {
             color: #D97706;
         }
-</style>
-
+        .error-message {
+            color: #ff0000;
+            font-size: 0.875rem;
+            margin-top: 0.5rem;
+            text-align: center;
+        }
+    </style>
 </head>  
 <body class="bg-gray-100">  
     <?php include '../Homepage/header.php'; ?>  
     <div class="flex items-center justify-center h-screen">  
         <div class="login-container p-8 rounded-lg shadow-lg w-full max-w-sm">  
             <h2 class="text-2xl font-bold mb-6 text-center login-title">Customer Login</h2>  
+            <!-- Display error message if it exists -->
+            <?php if (!empty($error)): ?>
+                <div class="error-message"><?php echo htmlspecialchars($error); ?></div>
+            <?php endif; ?>
             <form action="c_login.php" method="POST">  
                 <div class="mb-4">  
                     <label for="username" class="block text-sm font-medium input-label">Username</label>  
