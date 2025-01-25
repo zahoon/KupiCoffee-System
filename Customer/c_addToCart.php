@@ -15,6 +15,24 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $custid = getSession('custid'); // Assuming there is a custid in the session
     $staffid = getSession('staffid'); // Assuming there is a staffid in the session
 
+    // function addToCart($itemId, $itemName, $milk, $type, $size, $cream, $bean, $date, $custid, $staffid) {
+    //     if (!isset($_SESSION['cart'])) {
+    //         $_SESSION['cart'] = [];
+    //     }
+    //     $_SESSION['cart'][] = [
+    //         'id' => $itemId,
+    //         'name' => $itemName,
+    //         'milk' => $milk,
+    //         'type' => $type,
+    //         'size' => $size,
+    //         'cream' => $cream,
+    //         'bean' => $bean,
+    //         'date' => $date,
+    //         'custid' => $custid,
+    //         'staffid' => $staffid
+    //     ];
+    // }
+
     // Check if custid is set
     if ($custid === null) {
         echo "Customer ID is not set in the session.";
@@ -49,4 +67,5 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 }
 
 oci_close($condb);
+
 ?>
