@@ -1,3 +1,28 @@
+<?php
+include '../Homepage/dbkupi.php';
+require_once '../Homepage/session.php';
+
+// Check if the user is logged in
+$custid = getSession('custid');
+if (!$custid) {
+    echo 'no custid available';
+    exit();
+}
+
+// Fetch the profile information from the database
+$sql = "SELECT c_username, c_pass, c_phonenum, c_email, c_address FROM customer WHERE custid = :custid";
+$stmt = oci_parse($condb, $sql);
+oci_bind_by_name($stmt, ':custid', $custid);
+oci_execute($stmt);
+
+$profile = oci_fetch_assoc($stmt);
+
+// Free the statement
+oci_free_statement($stmt);
+
+// Close the database connection
+oci_close($condb);
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -82,18 +107,19 @@
       <div class="flex justify-between items-center">
         <div class="flex items-center space-x-4">
           <?php
-          $profileImage = '../image/staff2.jpg'; 
+          $profileImage = '../image/profile.png'; 
           if ($profileImage) {
-            echo "<img src='$profileImage' alt='Ain Profile' class='profile-image'>";
+            echo "<img src='$profileImage' alt='profile' class='profile-image'>";
           } else {
-            echo "<div class='default-avatar'>" . substr('Ain Profile', 0, 1) . "</div>";
+            echo "<div class='default-avatar'>" . substr('Profile', 0, 1) . "</div>";
           }
           ?>
           <div>
-            <p><span class="font-medium">Name:</span> <span id="profileName">Sharifah Nur Ain</span></p>
-            <p><span class="font-medium">Email:</span> <span id="profileEmail">Ipahh@gmail.com</span></p>
-            <p><span class="font-medium">Phone:</span> <span id="profilePhone">123-456-7890</span></p>
-            <p><span class="font-medium">Join Date:</span> 2021-01-12</p>
+            <p><span class="font-medium">Name:</span> <span id="profileName"><?php echo htmlspecialchars($profile['C_USERNAME']); ?></span></p>
+            <p><span class="font-medium">Password:</span> <span id="profilePassword"><?php echo htmlspecialchars($profile['C_PASS']); ?></span></p>
+            <p><span class="font-medium">Phone:</span> <span id="profilePhone"><?php echo htmlspecialchars($profile['C_PHONENUM']); ?></span></p>
+            <p><span class="font-medium">Email:</span> <span id="profileEmail"><?php echo htmlspecialchars($profile['C_EMAIL']); ?></span></p>
+            <p><span class="font-medium">Address:</span> <span id="profileAddress"><?php echo htmlspecialchars($profile['C_ADDRESS']); ?></span></p>
           </div>
         </div>
         <button onclick="openPopup()" class="bg-pink-600 text-white px-4 py-2 rounded-lg hover:bg-pink-700">Edit Profile</button>
@@ -186,19 +212,27 @@
   <div id="popup" class="popup">
     <div class="popup-content">
       <h2 class="text-xl font-bold text-pink-700 mb-4">Edit Profile</h2>
-      <form onsubmit="saveProfile(event)">
+      <form action="c_profile.php" method="post" onsubmit="saveProfile(event)">
         <div class="space-y-4">
           <div>
             <label class="block text-sm font-medium text-gray-700">Name</label>
-            <input type="text" id="editName" class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-lg" value="Sharifah Nur Ain" required>
+            <input name="username" type="text" id="username" class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-lg" value="<?php echo htmlspecialchars($profile['C_USERNAME']); ?>" required>
           </div>
           <div>
-            <label class="block text-sm font-medium text-gray-700">Email</label>
-            <input type="email" id="editEmail" class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-lg" value="Ipahh@gmail.com" required>
+            <label class="block text-sm font-medium text-gray-700">Password</label>
+            <input name="password" type="text" id="password" class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-lg" value="<?php echo htmlspecialchars($profile['C_PASS']); ?>" required>
           </div>
           <div>
             <label class="block text-sm font-medium text-gray-700">Phone</label>
-            <input type="tel" id="editPhone" class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-lg" value="123-456-7890" required>
+            <input name="phonenum" type="tel" id="phonenum" class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-lg" value="<?php echo htmlspecialchars($profile['C_PHONENUM']); ?>" required>
+          </div>
+          <div>
+            <label class="block text-sm font-medium text-gray-700">Email</label>
+            <input name="email" type="email" id="email" class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-lg" value="<?php echo htmlspecialchars($profile['C_EMAIL']); ?>" required>
+          </div>
+          <div>
+            <label class="block text-sm font-medium text-gray-700">Address</label>
+            <input name="address" type="text" id="address" class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-lg" value="<?php echo htmlspecialchars($profile['C_ADDRESS']); ?>" required>
           </div>
         </div>
         <div class="mt-6 flex justify-end space-x-4">
@@ -222,18 +256,25 @@
 
     // Function to save the profile
     function saveProfile(event) {
-      event.preventDefault();
-      const name = document.getElementById('editName').value;
-      const email = document.getElementById('editEmail').value;
-      const phone = document.getElementById('editPhone').value;
+        event.preventDefault();
+        // const username = document.getElementById('username').value;
+        // const password = document.getElementById('password').value;
+        // const phonenum = document.getElementById('phonenum').value;
+        // const email = document.getElementById('email').value;
+        // const address = document.getElementById('address').value;
 
-      // Update the profile info on the page
-      document.getElementById('profileName').textContent = name;
-      document.getElementById('profileEmail').textContent = email;
-      document.getElementById('profilePhone').textContent = phone;
+        // // Update the profile info on the page
+        // document.getElementById('profileName').textContent = name;
+        // document.getElementById('profilePassword').textContent = password;
+        // document.getElementById('profilePhone').textContent = phone;
+        // document.getElementById('profileEmail').textContent = email;
+        // document.getElementById('profileAddress').textContent = address;
 
-      // Close the popup
-      closePopup();
+        // Submit the form
+        event.target.submit();
+
+        // Close the popup
+        closePopup();
     }
   </script>
 </body>
