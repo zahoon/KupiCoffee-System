@@ -262,7 +262,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 </div>
 
 <?php if (!empty($_SESSION['cart'])): ?>
-    <button class="floating-button" onclick="window.location.href='../Customer/c.readyOrder.php';">Ready to Order</button>
+    <button class="floating-button" onclick="window.location.href='../Customer/c_readyOrder.php';">Ready to Order</button>
 <?php endif; ?>
 
 </body>
