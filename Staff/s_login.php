@@ -13,7 +13,7 @@
             color: #444;
         }
         .login-container {
-            background: linear-gradient(135deg, rgba(255, 223, 186, 0.8) 0%, rgba(255, 159, 159, 0.8) 100%);
+            background:rgb(255, 248, 207);
             box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
         }
         .login-title {
@@ -45,7 +45,7 @@
 <body class="bg-gray-100">  
     <?php include '../Homepage/header.php'; ?>  
     <div class="flex items-center justify-center h-screen">  
-        <div class="login-container bg-white p-8 rounded-lg shadow-lg w-full max-w-sm">  
+        <div class="login-container p-8 rounded-lg shadow-lg w-full max-w-sm">  
             <h2 class="text-2xl font-bold mb-6 text-center login-title">Staff Login</h2>  
             <form action="staffLogin.php" method="POST">  
                 <div class="mb-4">  
