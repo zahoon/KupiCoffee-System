@@ -36,7 +36,11 @@
             max-width: 90%;  
         }  
         .container-bg {  
-            background-color: #6E260E; /* Set the desired background color here */  
+            background-color: #6E260E;  
+        }  
+        /* New styles for table rows */  
+        .table-row {  
+            background-color: #B87333; /* Set the desired color */  
         }  
     </style>  
 </head>  
@@ -49,7 +53,7 @@
                 <table class="min-w-full bg-white border border-gray-300 rounded-lg">  
                     <thead>  
                         <tr class="bg-gray-200">  
-                            <th class="py-2 px-4 border-b text-left">ORDER</th>
+                            <th class="py-2 px-4 border-b text-left">ORDER</th>  
                             <th class="py-2 px-4 border-b text-left">CUSTOMER</th>   
                             <th class="py-2 px-4 border-b text-left">ADDRESS</th>  
                             <th class="py-2 px-4 border-b text-left">TIME</th>  
@@ -74,28 +78,27 @@
                         }  
 
                         // Fetch orders from the DELIVERY database and join with CUSTOMER table  
-                        $sql = "SELECT d.ORDERID, d.D_ADDRESS, d.D_TIME, d.D_STATUS, c.C_USERNAME   
-                                FROM DELIVERY d   
-                                JOIN ORDERTABLE o ON d.ORDERID = o.ORDERID   
-                                JOIN CUSTOMER c ON o.CUSTID = c.CUSTID";  // Adjusted to join CUSTOMER  
+                        $sql = "SELECT d.ORDERID, d.D_TIME, d.D_STATUS, c.C_USERNAME, c.C_ADDRESS 
+                                FROM DELIVERY d  
+                                JOIN ORDERTABLE o ON d.ORDERID = o.ORDERID  
+                                JOIN CUSTOMER c ON o.CUSTID = c.CUSTID";  
                         $stmt = oci_parse($dbconn, $sql);  
                         oci_execute($stmt);  
 
                         // Fetch results and display in the table  
                         while ($order = oci_fetch_array($stmt, OCI_ASSOC + OCI_RETURN_NULLS)) {  
                             echo "  
-                            <tr id='order-{$order['ORDERID']}' class='hover:bg-gray-100 transition duration-300'>  
-                                <td class='py-2 px-4 border-b'>{$order['ORDERID']}</td>
+                            <tr id='order-{$order['ORDERID']}' class='table-row hover:bg-gray-100 transition duration-300'>  
+                                <td class='py-2 px-4 border-b'>{$order['ORDERID']}</td>  
                                 <td class='py-2 px-4 border-b'>{$order['C_USERNAME']}</td>  
-                                <td class='py-2 px-4 border-b'>{$order['D_ADDRESS']}</td>  
+                                <td class='py-2 px-4 border-b'>{$order['C_ADDRESS']}</td>  
                                 <td class='py-2 px-4 border-b'>{$order['D_TIME']}</td>  
                                 <td class='py-2 px-4 border-b' id='status-{$order['ORDERID']}'>{$order['D_STATUS']}</td>   
                                 <td class='py-2 px-4 border-b'>  
-                                    <button onclick='approveOrder({$order['ORDERID']})' class='bg-gradient-to-r from-green-400 to-green-600 text-white px-4 py-2 rounded-lg shadow hover:shadow-lg transition duration-300'>Approve</button>  
+                                    <button onclick='approveOrder({$order['ORDERID']})' class='bg-gradient-to-r from-green-400 to-green-600 text-white px-2 py-2 rounded-lg shadow hover:shadow-lg transition duration-300'>Approve</button>  
                                     <button onclick='openDeclinePopup({$order['ORDERID']})' class='bg-gradient-to-r from-red-400 to-red-600 text-white px-4 py-2 rounded-lg shadow hover:shadow-lg transition duration-300'>Reject</button>  
                                 </td>  
-                            </tr>  
-                            ";  
+                            </tr>";  
                         }  
 
                         if (oci_num_rows($stmt) == 0) {  

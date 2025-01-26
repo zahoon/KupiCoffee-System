@@ -36,7 +36,11 @@
             max-width: 90%;  
         }  
         .container-bg {  
-            background-color: #6E260E; /* Set the desired background color here */  
+            background-color: #6E260E;  
+        }  
+        /* New styles for table rows */  
+        .table-row {  
+            background-color: #B87333; /* Set the desired color */  
         }  
     </style>  
 </head>  
@@ -53,15 +57,15 @@
                             <th class="py-2 px-4 border-b text-left">CUSTOMER</th>  
                             <th class="py-2 px-4 border-b text-left">TIME</th>  
                             <th class="py-2 px-4 border-b text-left">STATUS</th>  
-                            <th class="py-2 px-4 border-b text-left">ACTION</th>  
+                            <th class="py-2 px-4 border-b text-left">ACTION</th>   
                         </tr>  
                     </thead>  
                     <tbody>  
                         <?php  
                         // Database connection  
-                        $username = "kupidb"; // Your Oracle database username  
-                        $password = "kupidb"; // Your Oracle database password  
-                        $connection_string = "localhost:1521/xe"; // Database connection string  
+                        $username = "kupidb";  
+                        $password = "kupidb";  
+                        $connection_string = "localhost:1521/xe";  
 
                         // Create connection  
                         $dbconn = oci_connect($username, $password, $connection_string);  
@@ -72,18 +76,18 @@
                             die("Connection failed: " . $e['message']);  
                         }  
 
-                        // Fetch orders from the PICKUP database and join with ORDERTABLE and CUSTOMER table  
+                        // Fetch orders  
                         $sql = "SELECT p.ORDERID, p.P_TIME, p.P_STATUS, c.C_USERNAME   
                                 FROM PICKUP p   
                                 JOIN ORDERTABLE o ON p.ORDERID = o.ORDERID   
-                                JOIN CUSTOMER c ON o.CUSTID = c.CUSTID";  // Adjusted to join ORDERTABLE  
+                                JOIN CUSTOMER c ON o.CUSTID = c.CUSTID";  
                         $stmt = oci_parse($dbconn, $sql);  
                         oci_execute($stmt);  
 
-                        // Fetch results and display in the table  
+                        // Fetch results  
                         while ($order = oci_fetch_array($stmt, OCI_ASSOC + OCI_RETURN_NULLS)) {  
                             echo "  
-                            <tr id='order-{$order['ORDERID']}' class='hover:bg-gray-100'>  
+                            <tr id='order-{$order['ORDERID']}' class='table-row hover:bg-gray-100'>    
                                 <td class='py-2 px-4 border-b'>{$order['ORDERID']}</td>    
                                 <td class='py-2 px-4 border-b'>{$order['C_USERNAME']}</td>  
                                 <td class='py-2 px-4 border-b'>{$order['P_TIME']}</td>  
@@ -92,12 +96,11 @@
                                     <button onclick='approveOrder({$order['ORDERID']})' class='bg-green-500 text-white px-4 py-1 rounded hover:bg-green-600'>Approve</button>  
                                     <button onclick='openDeclinePopup({$order['ORDERID']})' class='bg-red-500 text-white px-4 py-1 rounded hover:bg-red-600'>Reject</button>  
                                 </td>  
-                            </tr>  
-                            ";  
+                            </tr>";  
                         }  
 
                         if (oci_num_rows($stmt) == 0) {  
-                            echo "<tr><td colspan='5' class='text-center py-4'>No orders found.</td></tr>";  
+                            echo "<tr><td colspan='6' class='text-center py-4'>No orders found.</td></tr>";  
                         }  
 
                         oci_free_statement($stmt);  
@@ -106,6 +109,7 @@
                     </tbody>  
                 </table>  
             </div>  
+
             <!-- Back Button -->  
             <div class="mt-6 text-center">  
                 <button onclick="window.history.back()" class="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600">Back</button>  
@@ -186,14 +190,13 @@
                 },  
                 body: new URLSearchParams({  
                     'orderId': currentOrderId,  
-                    'status': 'rejected' // Update status to rejected  
+                    'status': 'rejected'  
                 })  
             })  
             .then(response => response.json())  
             .then(data => {  
                 if (data.success) {  
                     console.log(`Order #${currentOrderId} declined. Reason: ${fullReason}`);  
-                    // Update status in UI  
                     document.getElementById(`status-${currentOrderId}`).innerText = 'Rejected';  
                     closeDeclinePopup();  
                 } else {  
@@ -204,7 +207,6 @@
         }  
 
         function approveOrder(orderId) {  
-            // Send AJAX request to update order status  
             fetch('update_order_status.php', {  
                 method: 'POST',  
                 headers: {  
@@ -212,13 +214,12 @@
                 },  
                 body: new URLSearchParams({  
                     'orderId': orderId,  
-                    'status': 'approved' // Update status to approved  
+                    'status': 'approved'  
                 })  
             })  
             .then(response => response.json())  
             .then(data => {  
                 if (data.success) {  
-                    // Update status in UI  
                     document.getElementById(`status-${orderId}`).innerText = 'Approved';  
                     document.getElementById('successPopup').style.display = 'flex';  
                     setTimeout(() => {  
