@@ -17,6 +17,96 @@ oci_execute($stmt);
 
 $profile = oci_fetch_assoc($stmt);
 
+// Function to fetch active orders (Pending status)
+function fetchActiveOrders($condb) {
+  $activeOrders = [];
+
+  // Query to fetch active orders from DELIVERY and PICKUP tables with status = 'Pending'
+  $query = "
+      SELECT o.ORDERID, o.KUPIDATE, d.D_TIME AS delivery_time, p.P_TIME AS pickup_time, d.D_STATUS, p.P_STATUS
+      FROM ORDERTABLE o
+      LEFT JOIN DELIVERY d ON o.ORDERID = d.ORDERID
+      LEFT JOIN PICKUP p ON o.ORDERID = p.ORDERID
+      WHERE (d.D_STATUS = 'Pending' OR p.P_STATUS = 'Pending')
+  ";
+
+  $stmt = oci_parse($condb, $query);
+  oci_execute($stmt);
+
+  while ($row = oci_fetch_assoc($stmt)) {
+      $orderID = $row['ORDERID'];
+      $orderDate = $row['KUPIDATE'];
+      $status = ($row['D_STATUS'] === 'Pending') ? 'Delivery Pending' : 'Pickup Pending';
+
+      // Fetch order details (items) from ORDERDETAIL table
+      $detailQuery = "
+          SELECT od.QUANTITY, od.PRICEPERORDER, od.SUBTOTAL, od.KUPIID
+          FROM ORDERDETAIL od
+          WHERE od.ORDERID = :orderID
+      ";
+
+      $detailStmt = oci_parse($condb, $detailQuery);
+      oci_bind_by_name($detailStmt, ':orderID', $orderID);
+      oci_execute($detailStmt);
+
+      $items = [];
+      $total = 0;
+
+      while ($detailRow = oci_fetch_assoc($detailStmt)) {
+          $items[] = [
+              'coffee' => 'Coffee Name', // Replace with actual coffee name if you have a mapping
+              'quantity' => $detailRow['QUANTITY'],
+              'price' => $detailRow['PRICEPERORDER'],
+          ];
+          $total += $detailRow['SUBTOTAL'];
+      }
+
+      $activeOrders[] = [
+          'id' => $orderID,
+          'date' => $orderDate,
+          'status' => $status,
+          'total' => $total,
+          'items' => $items,
+      ];
+  }
+
+  return $activeOrders;
+}
+
+// Function to fetch order history (completed orders)
+function fetchOrderHistory($condb) {
+  $orderHistory = [];
+
+  // Query to fetch completed orders from ORDERTABLE
+  $query = "
+      SELECT ORDERID, KUPIDATE, (SELECT SUM(SUBTOTAL) FROM ORDERDETAIL WHERE ORDERID = o.ORDERID) AS total
+      FROM ORDERTABLE o
+      WHERE ORDERID NOT IN (
+          SELECT ORDERID FROM DELIVERY WHERE D_STATUS = 'Pending'
+          UNION
+          SELECT ORDERID FROM PICKUP WHERE P_STATUS = 'Pending'
+      )
+  ";
+
+  $stmt = oci_parse($condb, $query);
+  oci_execute($stmt);
+
+  while ($row = oci_fetch_assoc($stmt)) {
+      $orderHistory[] = [
+          'id' => $row['ORDERID'],
+          'date' => $row['KUPIDATE'],
+          'amount' => $row['TOTAL'],
+      ];
+  }
+
+  return $orderHistory;
+}
+
+// Fetch active orders and order history
+$activeOrders = fetchActiveOrders($condb);
+$orderHistory = fetchOrderHistory($condb);
+
+
 // Free the statement
 oci_free_statement($stmt);
 
@@ -128,84 +218,62 @@ oci_close($condb);
 
     <!-- Active Orders and Order History -->
     <div class="grid grid-cols-2 gap-6">
-      <!-- Active Orders -->
-      <div class="bg-pink-50 p-4 rounded-lg">
+    <!-- Active Orders -->
+    <div class="bg-pink-50 p-4 rounded-lg">
         <h2 class="text-xl font-semibold text-pink-700 mb-4">Active Orders</h2>
         <div class="scrollable-box">
-          <?php
-          $activeOrder = [
-            'id' => 8242,
-            'status' => 'Preparing',
-            'total' => 35.00,
-            'items' => [
-              ['coffee' => 'Latte', 'quantity' => 2, 'price' => 12.00],
-              ['coffee' => 'Cappuccino', 'quantity' => 1, 'price' => 8.00],
-              ['coffee' => 'Espresso', 'quantity' => 3, 'price' => 15.00],
-            ],
-          ];
-
-          echo "
-          <div class='space-y-4'>
-            <div class='flex justify-between items-center mb-2'>
-              <p class='font-medium'>Order #{$activeOrder['id']}</p>
-              <p class='text-pink-700'>Total: RM{$activeOrder['total']}</p>
-            </div>
-            <div class='text-sm text-gray-600'>
-              <p>Status: <span class='font-medium text-pink-700'>{$activeOrder['status']}</span></p>
-            </div>
-          ";
-
-          foreach ($activeOrder['items'] as $item) {
-            echo "
-            <div class='p-4 bg-pink-100 rounded-lg'>
-              <div class='flex justify-between items-center mb-2'>
-                <p class='font-medium'>{$item['coffee']}</p>
-                <p class='text-pink-700'>RM{$item['price']}</p>
-              </div>
-              <div class='text-sm text-gray-600'>
-                <p>Quantity: {$item['quantity']}</p>
-              </div>
-            </div>
-            ";
-          }
-
-          echo "</div>"; 
-          ?>
-        </div>
-      </div>
-
-      <!-- Order History -->
-      <div class="bg-pink-50 p-4 rounded-lg">
-        <h2 class="text-xl font-semibold text-pink-700 mb-4">Order History</h2>
-        <div class="scrollable-box">
-          <div class="space-y-4">
             <?php
-            $orderHistory = [
-              ['id' => 8242, 'date' => '2023-10-01', 'amount' => 20.00],
-              ['id' => 8235, 'date' => '2023-09-25', 'amount' => 15.00],
-              ['id' => 8220, 'date' => '2023-09-20', 'amount' => 10.00],
-              ['id' => 8215, 'date' => '2023-09-15', 'amount' => 25.00],
-              ['id' => 8200, 'date' => '2023-09-10', 'amount' => 30.00],
-              ['id' => 8190, 'date' => '2023-09-05', 'amount' => 18.00],
-              ['id' => 8180, 'date' => '2023-08-30', 'amount' => 22.00],
-            ];
+            if (!empty($activeOrders)) {
+                foreach ($activeOrders as $activeOrder) {
+                    echo "
+                    
+                        
+                        <div class='flex justify-between items-center p-4 bg-pink-100 rounded-lg'>
+                            <div>
+                                <p class='font-medium'>Order #{$activeOrder['id']}</p>
+                                <p><span class='font-medium text-pink-700'>{$activeOrder['status']}</span></p>
+                            </div>
+                            <p class='text-pink-700'>RM{$activeOrder['total']}</p>
+                        </div> </br>
+                    ";
 
-            foreach ($orderHistory as $order) {
-              echo "
-              <div class='flex justify-between items-center p-4 bg-pink-100 rounded-lg'>
-                <div>
-                  <p class='font-medium'>Order #{$order['id']}</p>
-                  <p class='text-sm text-gray-600'>Date: {$order['date']}</p>
-                </div>
-                <p class='text-pink-700'>RM{$order['amount']}</p>
-              </div>
-              ";
+                    
+
+                    
+                }
+            } else {
+                echo "<p class='text-gray-600'>No active orders found.</p>";
             }
             ?>
-          </div>
         </div>
-      </div>
     </div>
+
+    <!-- Order History -->
+    <div class="bg-pink-50 p-4 rounded-lg">
+        <h2 class="text-xl font-semibold text-pink-700 mb-4">Order History</h2>
+        <div class="scrollable-box">
+            <div class="space-y-4">
+                <?php
+                if (!empty($orderHistory)) {
+                    foreach ($orderHistory as $order) {
+                        echo "
+                        <div class='flex justify-between items-center p-4 bg-pink-100 rounded-lg'>
+                            <div>
+                                <p class='font-medium'>Order #{$order['id']}</p>
+                                <p class='text-sm text-gray-600'>Date: {$order['date']}</p>
+                            </div>
+                            <p class='text-pink-700'>RM{$order['amount']}</p>
+                        </div>
+                        ";
+                    }
+                } else {
+                    echo "<p class='text-gray-600'>No order history found.</p>";
+                }
+                ?>
+            </div>
+        </div>
+    </div>
+</div>
   </div>
 
   <!-- Popup Form -->
