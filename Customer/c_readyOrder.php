@@ -118,7 +118,7 @@ if (isset($_GET['method'])) {
 <div class="container">
     <!-- Delivery Button -->
     <div class="box">
-        <a href="?method=delivery">
+        <a href="../Customer/c_delivery.php">
             <img src="../image/delivery.png" alt="Delivery">
             <p>Delivery</p>
         </a>
@@ -126,7 +126,7 @@ if (isset($_GET['method'])) {
 
     <!-- Pickup Button -->
     <div class="box">
-        <a href="?method=pickup">
+        <a href="../Customer/c_pickup.php">
             <img src="../image/pickup.png" alt="Pickup">
             <p>Pickup</p>
         </a>
