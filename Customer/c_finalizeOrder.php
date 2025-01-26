@@ -43,6 +43,14 @@ $coffeeToKupiID = [
     'Coconut Shake' => 23,
 ];
 
+// Retrieve order method and delivery time from the session
+$orderMethod = $_SESSION['order_method'] ?? 'pickup';
+$deliveryTime = $_SESSION['delivery_time'] ?? null; // Ensure this is set in c.delivery.php or c_pickup.php
+
+
+    $deliveryTime = date('Y-m-d') . ' ' . $deliveryTime; // Combine current date with delivery time
+
+
 // Loop through each item in the cart
 foreach ($_SESSION['cart'] as $item) {
     // Assign kupiID based on coffee_name
@@ -63,7 +71,7 @@ foreach ($_SESSION['cart'] as $item) {
     $kupiDate = date('Y-m-d H:i:s'); // Current date and time
     $custID = $_SESSION['custid'];
 
-    // Insert into ORDERTABLE
+    // Insert into ORDERTABLE with RETURNING clause
     $insertOrderTableSQL = "
         INSERT INTO ORDERTABLE (KUPIMILK, KUPITYPE, KUPISIZE, KUPICREAM, KUPIBEAN, KUPIDATE, CUSTID, STAFFID)
         VALUES (:kupiMilk, :kupiType, :kupiSize, :kupiCream, :kupiBean, TO_DATE(:kupiDate, 'YYYY-MM-DD HH24:MI:SS'), :custID, NULL)
@@ -71,6 +79,7 @@ foreach ($_SESSION['cart'] as $item) {
     ";
 
     $stmt = oci_parse($condb, $insertOrderTableSQL);
+    $orderID = 0; // Initialize the variable
 
     // Bind variables for ORDERTABLE
     oci_bind_by_name($stmt, ':kupiMilk', $kupiMilk);
@@ -80,7 +89,7 @@ foreach ($_SESSION['cart'] as $item) {
     oci_bind_by_name($stmt, ':kupiBean', $kupiBean);
     oci_bind_by_name($stmt, ':kupiDate', $kupiDate);
     oci_bind_by_name($stmt, ':custID', $custID);
-    oci_bind_by_name($stmt, ':orderID', $orderID, -1, SQLT_INT); // Bind ORDERID as an output parameter
+    oci_bind_by_name($stmt, ':orderID', $orderID, -1, SQLT_INT);
 
     // Execute the statement
     $result = oci_execute($stmt);
@@ -90,10 +99,7 @@ foreach ($_SESSION['cart'] as $item) {
         trigger_error(htmlentities($e['message'], ENT_QUOTES), E_USER_ERROR);
     }
 
-    // Retrieve the generated ORDERID
-    oci_fetch($stmt);
-
-    // Insert into ORDERDETAIL
+    // Insert into ORDERDETAIL using the same $orderID
     $insertOrderDetailSQL = "
         INSERT INTO ORDERDETAIL (QUANTITY, PRICEPERORDER, SUBTOTAL, KUPIID, ORDERID)
         VALUES (:quantity, :pricePerOrder, :subtotal, :kupiID, :orderID)
@@ -108,13 +114,59 @@ foreach ($_SESSION['cart'] as $item) {
     oci_bind_by_name($stmtDetail, ':kupiID', $kupiID);
     oci_bind_by_name($stmtDetail, ':orderID', $orderID);
 
-    // Execute the statement
     $resultDetail = oci_execute($stmtDetail);
 
     if (!$resultDetail) {
         $e = oci_error($stmtDetail);
         trigger_error(htmlentities($e['message'], ENT_QUOTES), E_USER_ERROR);
     }
+
+    // Debugging: Check the generated ORDERID
+echo "Generated ORDERID for ORDERTABLE: " . $orderID . "<br>";
+
+// Insert into DELIVERY if orderMethod is 'delivery'
+if ($orderMethod === 'delivery' && $deliveryTime) {
+    $insertDeliverySQL = "
+        INSERT INTO DELIVERY (ORDERID, D_TIME, D_STATUS)
+        VALUES (:orderID, TO_DATE(:deliveryTime, 'YYYY-MM-DD HH24:MI:SS'), 'Pending')
+    ";
+
+    $stmtDelivery = oci_parse($condb, $insertDeliverySQL);
+    oci_bind_by_name($stmtDelivery, ':orderID', $orderID);
+    oci_bind_by_name($stmtDelivery, ':deliveryTime', $deliveryTime);
+
+    $resultDelivery = oci_execute($stmtDelivery);
+
+    if (!$resultDelivery) {
+        $e = oci_error($stmtDelivery);
+        trigger_error(htmlentities($e['message'], ENT_QUOTES), E_USER_ERROR);
+    }
+}
+
+// Insert into PICKUP if orderMethod is 'pickup'
+if ($orderMethod === 'pickup' && $deliveryTime) {
+    echo "Inserting into DELIVERY or PICKUP with ORDERID: " . $orderID . "<br>";
+
+    $insertPickupSQL = "
+        INSERT INTO PICKUP (ORDERID, P_TIME, P_STATUS)
+        VALUES (:orderID, TO_DATE(:deliveryTime, 'YYYY-MM-DD HH24:MI:SS'), 'Pending')
+    ";
+    echo "Inserting into DELIVERY or PICKUP with ORDERID: " . $orderID . "<br>";
+
+    $stmtPickup = oci_parse($condb, $insertPickupSQL);
+    oci_bind_by_name($stmtPickup, ':orderID', $orderID);
+    oci_bind_by_name($stmtPickup, ':deliveryTime', $deliveryTime);
+
+    $resultPickup = oci_execute($stmtPickup);
+
+    if (!$resultPickup) {
+        $e = oci_error($stmtPickup);
+        trigger_error(htmlentities($e['message'], ENT_QUOTES), E_USER_ERROR);
+    }
+}
+
+
+   
 }
 
 // Commit the transaction
