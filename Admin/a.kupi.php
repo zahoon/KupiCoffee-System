@@ -1,14 +1,21 @@
 <?php
-// a_kupi.php
-include '../Homepage/header.php'; // Assuming your header is included here
+require_once '../Homepage/session.php';
 ?>
 
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Coffee System Admin</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+  <!-- bootstrap links -->
+  <!-- fonts links -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@500&display=swap" rel="stylesheet">
   <script src="https://cdn.tailwindcss.com"></script>
   <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script> <!-- jQuery for AJAX -->
   <style>
@@ -35,8 +42,10 @@ include '../Homepage/header.php'; // Assuming your header is included here
     }
 
     .card img {
-      background-color: rgb(251, 233, 244); /* Set a white background for the image */
-      padding: 10px; /* Add some padding inside the image background */
+      background-color: rgb(251, 233, 244);
+      /* Set a white background for the image */
+      padding: 10px;
+      /* Add some padding inside the image background */
       border-radius: 100px;
       box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
     }
@@ -99,8 +108,9 @@ include '../Homepage/header.php'; // Assuming your header is included here
     }
   </style>
 </head>
+
 <body class="font-sans text-gray-700">
-  <?php include '../Homepage/header.php';?>
+  <?php include '../Homepage/header.php'; ?>
 
   <!-- Content Section -->
   <div class="p-8">
@@ -110,7 +120,7 @@ include '../Homepage/header.php'; // Assuming your header is included here
     <!-- Button Group for Coffee & Non-Coffee -->
     <div class="button-group">
       <button id="coffeeBtn" class="active" onclick="fetchKupi(1, 'coffee')">Coffee</button>
-      <button id="nonCoffeeBtn" onclick="fetchKupi(1, 'non-coffee')">Non-Coffee</button>
+      <!-- <button id="nonCoffeeBtn" onclick="fetchKupi(1, 'non-coffee')">Non-Coffee</button> -->
     </div>
 
     <!-- Pagination Links -->
@@ -126,14 +136,17 @@ include '../Homepage/header.php'; // Assuming your header is included here
       $.ajax({
         url: 'a_kupi.php',
         method: 'GET',
-        data: { page: page, category: category },
+        data: {
+          page: page,
+          category: category
+        },
         dataType: 'json',
         success: function(response) {
           if (response.error) {
             alert(response.error);
             return;
           }
-          
+
           // Render Coffee Cards
           const coffeeCardsContainer = $('#coffee-cards');
           coffeeCardsContainer.empty();
@@ -177,4 +190,5 @@ include '../Homepage/header.php'; // Assuming your header is included here
     });
   </script>
 </body>
+
 </html>

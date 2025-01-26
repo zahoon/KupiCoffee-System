@@ -252,63 +252,63 @@
         name: "Salted Camy Frappe", 
         description: "A delightful blend of caramel syrup, coffee, milk, and ice, topped with whipped cream and a drizzle of caramel.<br><br>", 
         price: "RM 8.00", 
-        image: "../image/SALTED_CARAMEL_FRAPPE.png" 
+        image: "../image/Salted Camy Frappe.png" 
     },
     { 
         id: 5,
         name: "Espresso Frappe", 
         description: "A bold and creamy drink made by blending freshly brewed espresso with milk and ice, ideal for those who love strong flavors.<br><br>", 
         price: "RM 7.50", 
-        image: "../image/ESPRESSO_FRAPPE.png" 
+        image: "../image/Espresso Frappe.png" 
     },
     { 
         id: 6,
         name: "Salted Caramel Latte", 
         description: "A decadent treat made with rich caramel sauce, a hint of sea salt, and smooth espresso, topped with creamy steamed milk.<br><br>", 
         price: "RM 7.50", 
-        image: "../image/SALTED_CARAMEL_LATTE.png" 
+        image: "../image/Salted Caramel Latte.png" 
     },
     { 
         id: 7,
         name: "Buttercreme Latte", 
         description: "An indulgent latte made with creamy butter and sweet cream, paired with bold espresso for a comforting and unique flavor.<br><br>", 
         price: "RM 8.00", 
-        image: "../image/BUTTERCREME_LATTE.png" 
+        image: "../image/Buttercreme Latte.png" 
     },
     { 
         id: 8,
         name: "Coconut Latte", 
         description: "A refreshing take on a latte with smooth coconut milk, bold espresso, and a hint of tropical sweetness to feel the day better than yesterday.<br><br>", 
         price: "RM 7.50", 
-        image: "../image/COCONUT_LATTE.png" 
+        image: "../image/Coconut Latte.png" 
     },
     { 
         id: 9,
         name: "Hazelnut Latte", 
         description: "A perfect balance of espresso and rich hazelnut syrup, blended with steamed milk for a creamy, nutty flavor.<br><br>", 
         price: "RM 7.00", 
-        image: "../image/HAZELNUT_LATTE.png" 
+        image: "../image/Hazelnut Latte.png" 
     },
     { 
         id: 10,
         name: "Matcha Latte", 
         description: "A smooth and creamy combination of matcha green tea and steamed milk, offering a refreshing and slightly earthy taste.<br><br>", 
         price: "RM 7.50", 
-        image: "../image/MATCHA_LATTE.png" 
+        image: "../image/Matcha Latte.png" 
     },
     { 
         id: 11,
         name: "Spanish Latte", 
         description: "A sweet, velvety espresso-based drink with a hint of condensed milk and steamed milk, offering a smooth finish.<br><br>", 
         price: "RM 7.00", 
-        image: "../image/SPANISH_LATTE.png" 
+        image: "../image/Spanish Latte.png" 
     },
     { 
         id: 12,
         name: "Nesloo", 
         description: "A delicious Malaysian blend of Nescafe and Milo, Neslo offers the perfect balance of bold coffee and sweet chocolate to energize your day.<br><br>", 
         price: "RM 7.00", 
-        image: "../image/NESLOO.png" 
+        image: "../image/Nesloo.png" 
     }
 ];
 
