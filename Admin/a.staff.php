@@ -96,12 +96,11 @@ $totalPages = $result['totalPages'];
           // ];
           foreach ($staffList as $index => $staff) {
             $serialNumber = ($currentPage - 1) * $itemsPerPage + $index + 1; // Serial number based on pagination
-            $role = isset($staff['ADMINID']) && $staff['ADMINID'] !== null ? 'Admin' : 'Staff';
             echo "
                 <tr class='border-b hover:bg-pink-50'>
                   <td class='text-center px-4 py-2'>{$serialNumber}</td>
                   <td class='text-center px-4 py-2'>{$staff['S_USERNAME']}</td>
-                  <td class='text-center px-4 py-2'>{$role}</td> <!-- Display role -->
+                  <td class='text-center px-4 py-2'>{$staff['S_ROLE']}</td> <!-- Display role -->
                   <td class='text-center px-4 py-2'>{$staff['S_EMAIL']}</td>
                   <td class='text-center px-4 py-2'>{$staff['S_PHONENUM']}</td>
                 </tr>

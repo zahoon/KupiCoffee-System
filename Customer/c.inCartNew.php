@@ -223,7 +223,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 $total += $subtotal; // Add to total
             ?>
                 <div class="order">
-                    <img src="<?php echo htmlspecialchars($order['image']); ?>" alt="Order Image">
                     <div class="details">
                         <strong>Order <?php echo $index + 1; ?></strong>
                         <p>Coffee Name: <?php echo htmlspecialchars($order['coffee_name']); ?></p>

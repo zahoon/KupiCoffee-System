@@ -13,7 +13,7 @@ function fetchStaff($currentPage, $itemsPerPage)
             s.s_username, 
             s.s_email, 
             s.s_phonenum,
-            s.adminid,
+            s.s_role,
             ROW_NUMBER() OVER (ORDER BY s.staffID) AS row_number
         FROM staff s
     ) 

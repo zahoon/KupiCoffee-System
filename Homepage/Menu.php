@@ -209,20 +209,18 @@
         </div>
     </section>
 
-    <!-- Non-Coffee Menu Section -->
+    <!-- Non-Coffee Menu Section
     <section class="menu-section">
         <h2 style="font-size: 35px; font-weight: bold; color: #7a2005">Non-Coffee Menu</h2>
         <div class="menu-slider">
             <button class="nav-button left" id="prevNonCoffeeButton" onclick="prevNonCoffeePage()">&#8249;</button>
             <div class="menu-container" id="nonCoffeeContainer">
-                <!-- Non-coffee items will be dynamically loaded here -->
             </div>
             <button class="nav-button right" id="nextNonCoffeeButton" onclick="nextNonCoffeePage()">&#8250;</button>
         </div>
         <div class="pagination" id="nonCoffeePaginationDots">
-            <!-- Pagination dots for non-coffee menu -->
         </div>
-    </section>
+    </section> -->
 
     <script>
         const coffeeItems = [

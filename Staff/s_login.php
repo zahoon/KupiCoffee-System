@@ -57,11 +57,8 @@
                     <input type="password" id="password" name="password" required class="mt-1 p-2 w-full border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500">  
                 </div>  
                 <button type="submit" class="w-full text-white p-2 rounded-md login-button focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-opacity-50">Login</button>  
-            </form>  
-            <div class="mt-4 text-center">
-                <a href="staffRegister.php" class="register-link">Don't have an account yet? Register now!</a>
-            </div>
-            <button onclick="window.location.href='#'" class="w-full mt-4 text-white p-2 rounded-md bg-amber-500 hover:bg-amber-600 focus:outline-none focus:ring-2 focus:ring-yellow-500 focus:ring-opacity-50">Staff Login</button>
+            </form>
+            <button onclick="window.location.href='../Customer/c.login.php'" class="w-full mt-4 text-white p-2 rounded-md bg-amber-500 hover:bg-amber-600 focus:outline-none focus:ring-2 focus:ring-yellow-500 focus:ring-opacity-50">Customer Login</button>
         </div>  
     </div>  
 </body>  
