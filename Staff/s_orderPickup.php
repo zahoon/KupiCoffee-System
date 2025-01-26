@@ -87,7 +87,7 @@
                         // Fetch results  
                         while ($order = oci_fetch_array($stmt, OCI_ASSOC + OCI_RETURN_NULLS)) {  
                             echo "  
-                            <tr id='order-{$order['ORDERID']}' class='table-row hover:bg-gray-100'>    
+                            <tr id='order-{$order['ORDERID']}' class='table-row'>    
                                 <td class='py-2 px-4 border-b'>{$order['ORDERID']}</td>    
                                 <td class='py-2 px-4 border-b'>{$order['C_USERNAME']}</td>  
                                 <td class='py-2 px-4 border-b'>{$order['P_TIME']}</td>  
