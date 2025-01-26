@@ -47,6 +47,7 @@
                         echo '<a href="../Admin/a.customer.php" class="text-pink-500 block px-4 py-2 text-sm hover:bg-gray-50 no-underline" role="menuitem" tabindex="-1" id="menu-item-2">Customer</a>';
                         echo '<a href="../Admin/a.staff.php" class="text-pink-500 block px-4 py-2 text-sm hover:bg-gray-50 no-underline" role="menuitem" tabindex="-1" id="menu-item-3">Staff</a>';
                         echo '<a href="../Admin/a.kupi.php" class="text-pink-500 block px-4 py-2 text-sm hover:bg-gray-50 no-underline" role="menuitem" tabindex="-1" id="menu-item-4">Kupi !</a>';
+                        echo '<a href="../Admin/a_insert_kupi.php" class="text-pink-500 block px-4 py-2 text-sm hover:bg-gray-50 no-underline" role="menuitem" tabindex="-1" id="menu-item-5">Add Kupi !</a>';
                         echo '<a href="../Admin/a.sales.php" class="text-pink-500 block px-4 py-2 text-sm hover:bg-gray-50 no-underline" role="menuitem" tabindex="-1" id="menu-item-5">Sales</a>';
                         echo '<a href="../Homepage/logout.php" class="text-pink-500 block px-4 py-2 text-sm hover:bg-red-200 underline decoration-solid" role="menuitem" tabindex="-1" id="menu-item-6">Logout</a>';
                     } else if ($role == 'staff') {
