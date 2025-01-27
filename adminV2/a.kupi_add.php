@@ -26,7 +26,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     
     if (empty($errors)) {
         // Insert new KUPI
-        $sql = "INSERT INTO KUPI (K_NAME, K_DESC, K_PRICE, K_IMAGE) VALUES (:k_name, :k_desc, :k_price, EMPTY_BLOB()) RETURNING K_IMAGE INTO :k_image";
+        $sql = "INSERT INTO KUPI (K_NAME, K_DESC, K_PRICE, K_IMAGE) 
+                VALUES (:k_name, :k_desc, :k_price, EMPTY_BLOB()) 
+                RETURNING K_IMAGE INTO :k_image";
         
         $stmt = oci_parse($condb, $sql);
         
