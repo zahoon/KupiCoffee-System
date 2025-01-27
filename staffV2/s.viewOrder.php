@@ -146,6 +146,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['action'])) {
         }
     } elseif ($action === 'onway' && $isDelivery) {
         $sql = "UPDATE DELIVERY SET D_STATUS = 'On the Way' WHERE ORDERID = :orderid";
+    } elseif ($action === 'complete') {
+        if ($isDelivery) {
+            $sql = "UPDATE DELIVERY SET D_STATUS = 'Completed' WHERE ORDERID = :orderid";
+        } else {
+            $sql = "UPDATE PICKUP SET P_STATUS = 'Completed' WHERE ORDERID = :orderid";
+        }
     }
 
     if (isset($sql)) {
@@ -213,6 +219,15 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['action'])) {
                         <?php endif; ?>
                     <?php endif; ?>
                     
+                    <?php if ($status === 'Ready for Pickup' || $status === 'On the Way'): ?>
+                        <form method="POST" class="inline">
+                            <input type="hidden" name="action" value="complete">
+                            <button type="submit" 
+                                class="bg-purple-500 text-white px-4 py-2 rounded hover:bg-purple-600">
+                                Mark as Completed
+                            </button>
+                        </form>
+                    <?php endif; ?>
                     <a href="s.manageOrder.php" class="bg-gray-500 text-white px-4 py-2 rounded hover:bg-gray-600">
                         Back to Orders
                     </a>
