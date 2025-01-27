@@ -77,7 +77,7 @@ unset($_SESSION['error']);
             <div class="mt-4 text-center">
                 <a href="c.register.php" class="register-link">Don't have an account yet? Register now!</a>
             </div>
-            <button onclick="window.location.href='../Staff/s_login.php'" class="w-full mt-4 text-white p-2 rounded-md bg-amber-500 hover:bg-amber-600 focus:outline-none focus:ring-2 focus:ring-yellow-500 focus:ring-opacity-50">Staff Login</button>
+            <button onclick="window.location.href='../StaffV2/s_login.php'" class="w-full mt-4 text-white p-2 rounded-md bg-amber-500 hover:bg-amber-600 focus:outline-none focus:ring-2 focus:ring-yellow-500 focus:ring-opacity-50">Staff Login</button>
         </div>  
     </div>  
 </body>  

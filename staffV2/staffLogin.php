@@ -36,10 +36,10 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     if ($row = oci_fetch_assoc($stmt)) {  
         // Login successful  
         $_SESSION['username'] = $user; // Store username in session
-        $_SESSION['role'] = $row['S_ROLE']; // Store role in session
+        $_SESSION['s_role'] = $row['S_ROLE']; // Store role in session
         
         // Redirect based on role
-        if ($row['S_ROLE'] === 'Admin') {
+        if ($row['S_ROLE'] === 'admin') {
             header("Location: ../adminV2/a.sales.php"); // Redirect to admin dashboard
         } else {
             header("Location: s.manageOrder.php"); // Redirect to staff dashboard

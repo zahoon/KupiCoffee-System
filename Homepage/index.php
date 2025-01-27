@@ -434,7 +434,16 @@
                 <br>Let Kupi Coffee be your perfect start 
                 <br> to every adventure.
             </p>
-            <button onclick="window.location.href='../Homepage/menu.php';" type="button" id="btn">Shop Now</button>
+            <?php
+            // Retrieve the role from the session using getSession function
+            $role = getSession('s_role');
+            if ($role == 'admin' || $role == 'staff') {
+                echo '<button onclick="window.location.href=\'../Homepage/menu.php\';" type="button" id="btn" disabled>Shop Now</button>';
+                echo '<div class="mt-2 px-3 underline"> cannot access !</div>';
+            } else {
+                echo '<button onclick="window.location.href=\'../Homepage/menu.php\';" type="button" id="btn">Shop Now</button>';
+            }
+            ?>
         </div>
     </section>
 
