@@ -43,7 +43,7 @@
 
         .menu-item img {
             width: 100%;
-            height: 200px;
+            height: auto;
             object-fit: cover;
             border-radius: 8px;
             margin-bottom: 15px;
@@ -85,8 +85,8 @@
 
         .cart-button {
             position: fixed;
-            top: 80px;
-            right: 20px;
+            top: 100px;
+            right: 30px;
             background: none;
             border: none;
             cursor: pointer;

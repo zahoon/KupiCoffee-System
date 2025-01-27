@@ -49,6 +49,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>In Cart</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet"> 
     <style>
         body {
     font-family: Arial, sans-serif;
@@ -92,14 +93,14 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
         .order {
             flex: 1 1 calc(50% - 20px);
-            max-width: 600px;
+            max-width: 500px;
             border: 1px solid #ddd;
             padding: 15px;
             border-radius: 8px;
             background-color: rgb(255, 253, 159);
             box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
             display: flex;
-            gap: 15px;
+            gap: 40px;
         }
 
         .order img {
@@ -134,8 +135,14 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             justify-content: center;
         }
 
-        .quantity-form {
+        .actions {
             display: flex;
+            gap: 10px;
+            margin-right: 40px;
+        }
+
+        .quantity-form {
+            /* display: flex; */
             align-items: center;
             gap: 10px;
         }
@@ -185,8 +192,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
         .floating-button {
             position: fixed;
-            bottom: 20px;
-            right: 20px;
+            bottom: 35px;
+            right: 45%;
             background-color: #7a2005;
             color: white;
             padding: 10px 20px;
@@ -201,6 +208,13 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
         .floating-button:hover {
             background-color: #ffb300;
+        }
+
+        .center {
+            display: flex;
+            justify-content: center;
+            text-align: center;
+            margin-top: 20px;
         }
     </style>
 </head>
@@ -239,8 +253,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                         <!-- Update Quantity Form -->
                         <form class="quantity-form" method="post">
                             <input type="hidden" name="index" value="<?php echo $index; ?>">
-                            <label for="quantity">Quantity:</label>
-                            <input type="number" name="quantity" value="<?php echo $quantity; ?>" min="1">
+                            <label for="quantity">Quantity:</label><br><br>
+                            <input type="number" name="quantity" value="<?php echo $quantity; ?>" min="1"><br><br>
                             <button type="submit" name="update_quantity">Update</button>
                         </form>
                         <!-- Remove Button -->
@@ -261,7 +275,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 </div>
 
 <?php if (!empty($_SESSION['cart'])): ?>
-    <button class="floating-button" onclick="window.location.href='../Customer/c_readyOrder.php';">Ready to Order</button>
+        <button class="floating-button" onclick="window.location.href='../Customer/c_readyOrder.php';">Ready to Order</button>
 <?php endif; ?>
 
 </body>

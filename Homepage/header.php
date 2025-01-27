@@ -40,7 +40,7 @@
                 $role = getSession('s_role');
                 if ($custusername && empty($role)) {
                     echo '<a href="../Homepage/index.php" class="text-pink-500 px-4 py-2 text-sm hover:bg-gray-50 no-underline rounded" role="menuitem" tabindex="-1" id="menu-item-0">Home</a>';
-                    echo '<a href="../Homepage/Menu.php" class="text-pink-500 px-4 py-2 text-sm hover:bg-gray-50 no-underline rounded" role="menuitem" tabindex="-1" id="menu-item-1">Menu</a>';
+                    echo '<a href="../Homepage/MenuV2.php" class="text-pink-500 px-4 py-2 text-sm hover:bg-gray-50 no-underline rounded" role="menuitem" tabindex="-1" id="menu-item-1">Menu</a>';
                     echo '<a href="../Customer/c.profile.php" class="text-pink-500 px-4 py-2 text-sm hover:bg-gray-50 no-underline rounded" role="menuitem" tabindex="-1" id="menu-item-2">Profile</a>';
                     echo '<a href="../Homepage/logout.php" class="text-pink-500 px-4 py-2 text-sm hover:bg-red-200 underline decoration-solid rounded" role="menuitem" tabindex="-1" id="menu-item-3">Logout</a>';
                 } else if ($role == 'admin') {
@@ -49,8 +49,7 @@
                     echo '<div class="origin-top-right absolute right-0 mt-2 w-56 rounded-md shadow-lg bg-pink-100 ring-1 ring-black ring-opacity-5 hidden" role="menu" aria-orientation="vertical" aria-labelledby="home-menu-button" tabindex="-1">';
                     echo '<div class="py-1" role="none">';
                     echo '<a href="../Homepage/index.php" class="text-pink-500 block px-4 py-2 text-sm hover:bg-gray-50 no-underline" role="menuitem" tabindex="-1" id="menu-item-0">Homepage</a>';
-                    echo '<a href="../Homepage/Menu.php" class="text-pink-500 block px-4 py-2 text-sm hover:bg-gray-50 no-underline" role="menuitem" tabindex="-1" id="menu-item-1">Menu</a>';
-                    echo '<a href="../Homepage/logout.php" class="text-pink-500 block px-4 py-2 text-sm hover:bg-red-200 underline decoration-solid" role="menuitem" tabindex="-1" id="menu-item-2">Logout</a>';
+                    echo '<a href="../Homepage/logout.php" class="text-pink-500 block px-4 py-2 text-sm hover:bg-red-200 underline decoration-solid" role="menuitem" tabindex="-1" id="menu-item-1">Logout</a>';
                     echo '</div>';
                     echo '</div>';
                     echo '</div>';
@@ -68,7 +67,7 @@
                     echo '</div>';
                     echo '</div>';
 
-                    echo '<a href="../Admin/a.sales.php" class="text-pink-500 px-4 py-2 text-sm hover:bg-gray-50 no-underline rounded" role="menuitem" tabindex="-1" id="menu-item-6">Sales</a>';
+                    echo '<a href="../AdminV2/a.sales.php" class="text-pink-500 px-4 py-2 text-sm hover:bg-gray-50 no-underline rounded" role="menuitem" tabindex="-1" id="menu-item-6">Sales</a>';
                 } else if ($role == 'staff') {
                     echo '<a href="../Homepage/index.php" class="text-pink-500 px-4 py-2 text-sm hover:bg-gray-50 no-underline rounded" role="menuitem" tabindex="-1" id="menu-item-0">Homepage</a>';
                     echo '<a href="../staffV2/s.editProfile.php" class="text-pink-500 px-4 py-2 text-sm hover:bg-gray-50 no-underline rounded" role="menuitem" tabindex="-1" id="menu-item-1">Profile</a>';
@@ -77,7 +76,7 @@
                 } else {
                     echo '<div class="relative">';
                     echo '<a href="../Homepage/index.php" class="text-pink-500 px-4 py-2 text-sm hover:bg-gray-50 no-underline rounded" role="menuitem" tabindex="-1" id="menu-item-0">Home</a>';
-                    echo '<a href="../Homepage/Menu.php" class="text-pink-500 px-4 py-2 text-sm hover:bg-gray-50 no-underline rounded" role="menuitem" tabindex="-1" id="menu-item-1">Menu</a>';
+                    echo '<a href="../Homepage/MenuV2.php" class="text-pink-500 px-4 py-2 text-sm hover:bg-gray-50 no-underline rounded" role="menuitem" tabindex="-1" id="menu-item-1">Menu</a>';
                     echo '<a href="../Customer/c.login.php" class="text-pink-500 px-4 py-2 text-sm hover:bg-gray-50 no-underline rounded" role="menuitem" tabindex="-1" id="menu-item-2">Login</a>';
                     echo '</div>';
                 }

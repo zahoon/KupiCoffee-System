@@ -101,7 +101,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         }
     </style>
 </head>
-<body class="font-sans text-gray-700">
+<body class="font-sans text-gray-700;" style="background-image: url(../image/bgDel.png); background-size: cover;">
     <?php include '../Homepage/header.php'; ?>
     
     <div class="container mx-auto px-4 py-8">
