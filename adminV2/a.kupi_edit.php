@@ -42,7 +42,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         // Check if new image is uploaded
         if (isset($_FILES['k_image']) && $_FILES['k_image']['error'] === UPLOAD_ERR_OK) {
             // Update with new image
-            $sql = "UPDATE KUPI SET K_NAME = :name, K_DESC = :desc, K_PRICE = :price, K_IMAGE = EMPTY_BLOB() 
+            $sql = "UPDATE KUPI SET K_NAME = :name, K_DESC = :description, K_PRICE = :price, K_IMAGE = EMPTY_BLOB() 
                    WHERE KUPIID = :id RETURNING K_IMAGE INTO :image";
             
             $stmt = oci_parse($condb, $sql);
@@ -50,7 +50,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             // Bind parameters
             oci_bind_by_name($stmt, ":id", $kupiId);
             oci_bind_by_name($stmt, ":name", $k_name);
-            oci_bind_by_name($stmt, ":desc", $k_desc);
+            oci_bind_by_name($stmt, ":description", $k_desc);
             oci_bind_by_name($stmt, ":price", $k_price);
             
             // Bind the BLOB descriptor
@@ -74,12 +74,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             oci_free_statement($stmt);
         } else {
             // Update without changing image
-            $sql = "UPDATE KUPI SET K_NAME = :name, K_DESC = :desc, K_PRICE = :price WHERE KUPIID = :id";
+            $sql = "UPDATE KUPI SET K_NAME = :name, K_DESC = :description, K_PRICE = :price WHERE KUPIID = :id";
             $stmt = oci_parse($condb, $sql);
             
             oci_bind_by_name($stmt, ":id", $kupiId);
             oci_bind_by_name($stmt, ":name", $k_name);
-            oci_bind_by_name($stmt, ":desc", $k_desc);
+            oci_bind_by_name($stmt, ":description", $k_desc);
             oci_bind_by_name($stmt, ":price", $k_price);
             
             if (oci_execute($stmt)) {
